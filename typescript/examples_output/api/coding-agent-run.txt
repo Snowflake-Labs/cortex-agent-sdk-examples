@@ -1,0 +1,65 @@
+=== 1. codingAgent.stream — always_allow bash, no permission prompt ===
+  final text: I'll run that command for you.Command completed successfully. The directory (or file) at `/tmp/coding-agent-example-nonexistent` has been removed if it existed, or the command completed without error if it didn't exist.
+  request_id: 7b23f247-7aa0-4bb6-aaa4-7f3f89952cb8
+  wire check — permission field on tool_use? false  (expected: false)
+  wire check — client_tool_use_request status?  false  (expected: false)
+
+=== 2. codingAgent.run non-streaming — expandCodingAgentRequest + disabledSkills ===
+  expanded tools:          [{"tool_spec":{"type":"code_toolset_all","name":"code_toolset_all"}}]
+  expanded tool_resources: {"code_toolset_all":{"permission_policy":{"type":"always_allow"},"disabled_skills":["dashboard"],"workspace_mounts":[{"name":"USER$EXAMPLE_USER.PUBLIC.DEFAULT$","type":"workspace","mount_path":"/workspace"}]}}
+  expanded skills:         [{"name":"e2e_probe","source":{"type":"STAGE","path":"@DB.SCHEMA.STAGE/skills/e2e_probe"}}]
+  assistant reply: Yes
+
+=== 3. codingAgent.run — workspace_mounts ===
+  wrote marker CODING_AGENT_WS_1788924989222 to /workspace/coding-agent-example.txt
+  marker roundtripped in bash stdout? true  (SDK path OK)
+  (real-mount proof is section 4: same file read back across turns and threads)
+  bash stdout:
+CODING_AGENT_WS_1788924989222
+
+
+=== 4. Conversation.send — persistence across turns ===
+  created thread 8834748044430
+  turn 1 reply: I'll run that command for you.Successfully wrote "CODING_AGENT_PERSIST_1788925009373" to persist.txt and confirmed the contents.
+  turn 2 reply: The file persists correctly with the content "CODING_AGENT_PERSIST_1788925009373".
+  marker present in turn 2 (same-thread persistence)? true  (expected: true)
+  marker visible from a NEW thread?   true  (depends on real v-stage mount; false = ephemeral fallback)
+  cross-thread bash stdout: CODING_AGENT_PERSIST_1788925009373
+
+  deleted threads 8834748044430 and 8834748044434
+
+=== 4b. codingAgent.run stream:true — raw AsyncIterable ===
+  [1] {"_event_type":"response.status","message":"Provisioning sandbox","sequence_number":0,"status":"sandbox_provisioning","event":"response.status"}
+  [2] {"_event_type":"response.status","message":"sandbox_ready","sequence_number":1,"status":"sandbox_ready","event":"response.status"}
+  [3] {"_event_type":"response.text.delta","content_index":0,"sequence_number":2,"text":"I'll run the echo command for you","event":"response.text.delta"}
+  [4] {"_event_type":"response.text.delta","content_index":0,"sequence_number":3,"text":".","event":"response.text.delta"}
+  [5] {"_event_type":"response.text","content_index":0,"sequence_number":4,"text":"I'll run the echo command for you.","event":"response.text"}
+  [6] {"_event_type":"response.status","message":"Choosing data sources to use","sequence_number":5,"status":"extracting_tool_calls","event":"response.status"}
+  [7] {"_event_type":"response.status","message":"Getting additional context","sequence_number":6,"status":"executing_tools","event":"response.status"}
+  [8] {"_event_type":"response.tool_use","classification":{"bash_facts":{"sub_commands":[{"base_command":"echo","command":"echo ITER_OK"}]},"reasons":["Print to stdout"],"risk_level":"RISK_LEVEL_NONE"},"client_side_execute":false,"content_index":1,"input":{"command":"echo ITER_OK","description":"Echo ITER_OK to terminal"},"name":"bash","sequence_number":7,"tool_use_id":"toolu_bdrk_01AgZz4C6NrFnpo72XqEqYxi","type":"bash","event":"response.tool_use"}
+  [9] {"_event_type":"response.tool_result.status","message":"Running bash","sequence_number":8,"status":"executing_tool","tool_type":"bash","tool_use_id":"toolu_bdrk_01AgZz4C6NrFnpo72XqEqYxi","event":"response.tool_result.status"}
+  [10] {"_event_type":"response.tool_result","content":[{"text":"Bash command `echo ITER_OK` with description `Echo ITER_OK to terminal` returned output: ITER_OK\n","type":"text"}],"content_index":2,"name":"bash","sequence_number":9,"status":"success","tool_use_id":"toolu_bdrk_01AgZz4C6NrFnpo72XqEqYxi","type":"bash","event":"response.tool_result"}
+  [11] {"_event_type":"response.text.delta","content_index":3,"sequence_number":10,"text":"The command","event":"response.text.delta"}
+  [12] {"_event_type":"response.text.delta","content_index":3,"sequence_number":11,"text":" executed","event":"response.text.delta"}
+  [13] {"_event_type":"response.text.delta","content_index":3,"sequence_number":12,"text":" successfully and","event":"response.text.delta"}
+  [14] {"_event_type":"response.text.delta","content_index":3,"sequence_number":13,"text":" returned `","event":"response.text.delta"}
+  [15] {"_event_type":"response.text.delta","content_index":3,"sequence_number":14,"text":"ITER_OK`.","event":"response.text.delta"}
+  [16] {"_event_type":"response.text","content_index":3,"sequence_number":15,"text":"The command executed successfully and returned `ITER_OK`.","event":"response.text"}
+  [17] {"_event_type":"response","content":[{"text":"I'll run the echo command for you.","type":"text"},{"tool_use":{"classification":{"bash_facts":{"sub_commands":[{"base_command":"echo","command":"echo ITER_OK"}]},"reasons":["Print to stdout"],"risk_level":"RISK_LEVEL_NONE"},"client_side_execute":false,"input":{"command":"echo ITER_OK","description":"Echo ITER_OK to terminal"},"name":"bash","tool_use_id":"toolu_bdrk_01AgZz4C6NrFnpo72XqEqYxi","type":"bash"},"type":"tool_use"},{"tool_result":{"content":[{"text":"Bash command `echo ITER_OK` with description `Echo ITER_OK to terminal` returned output: ITER_OK\n","type":"text"}],"name":"bash","status":"success","tool_use_id":"toolu_bdrk_01AgZz4C6NrFnpo72XqEqYxi","type":"bash"},"type":"tool_result"},{"text":"The command executed successfully and returned `ITER_OK`.","type":"text"}],"metadata":{"usage":{"tokens_consumed":[{"context_window":200000,"input_tokens":{"cache_read":91802,"cache_write":452,"total":92263,"uncached":9},"model_name":"claude-sonnet-4-5","output_tokens":{"total":103}}]},"billing_info":{"billing_source":"AGENT","is_trial":false}},"role":"assistant","schema_version":"v2","sequence_number":16,"status":"completed","event":"response"}
+  summary: drained 17 events, kinds=[response, response.status, response.text, response.text.delta, response.tool_result, response.tool_result.status, response.tool_use]
+
+=== 4c. codingAgent.run background:true → AsyncRun.await() → view ===
+  kickoff: status=in_progress run_id=8834748044438-8834750865450
+  view.role:            assistant
+  view.text (first 200): I'll run that command for you.The command has completed successfully, printing "BG_ASYNCRUN_OK" to the output.
+  view.content.length:  4
+  view.texts.length:    2
+  view.toolUses.length: 1
+  view.toolResults.len: 1
+  view.metadata.run_id: 8834748044438-8834750865450
+  view.events?.length:  20
+  deleted bg thread 8834748044438
+
+=== 5. Client-side validation ===
+  ✓ nested mountPath rejected: codingAgent: workspaceMounts[0].mountPath "/workspace/nested" must be a top-level path directly under "/" (e.g. "/workspace"). Nested paths fail silently on the server, which does not create intermediate parent directories.
+  ✓ empty workspace name rejected: codingAgent: workspaceMounts[0].name is empty. Expected a workspace FQN like "USER$X.PUBLIC.DEFAULT$".

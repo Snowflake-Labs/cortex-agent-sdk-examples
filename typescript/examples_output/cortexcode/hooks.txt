@@ -1,0 +1,14 @@
+=== 1. PreToolUse and PostToolUse observe a Read ===
+  PreToolUse:  read tool_input keys [file_path]
+  PostToolUse: read tool_response present: true
+  reply: hooks observed this read
+
+=== 2. systemMessage returns to the stream as a system_message event ===
+  system_message events: 1
+  contains the hook's notice: true
+    hook: Read intercepted
+
+=== 3. PreToolUse can block a tool call ===
+  hook fired 1 time(s)
+  reply: HOOK_BLOCKED
+  result subtype: success

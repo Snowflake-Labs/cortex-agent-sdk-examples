@@ -1,0 +1,28 @@
+=== 1. Allow — what the callback receives ===
+  tool:               Read
+  input keys:         [action, resource]
+  input.action:       "file_read"
+  input.resource ends with: allowed.txt
+  context.signal:     AbortSignal
+  context.toolUseID:  set
+  context.suggestions: 0
+  reply: APPROVED
+
+=== 2. Deny — the model is told why ===
+  tools denied by the callback: [Read]
+  reply: BLOCKED
+  result subtype: success
+  result.permission_denials: 0
+
+=== 3. A path-scoped policy ===
+  allow allowed.txt
+  deny  secret.txt
+  reply: Reading `allowed.txt` first.Contents of `allowed.txt`:
+
+```
+APPROVED
+```
+
+Now reading `secret.txt`.`allowed.txt` contains: `APPROVED`
+
+Reading `secret.txt` was refused — the Read tool denied access to that file.

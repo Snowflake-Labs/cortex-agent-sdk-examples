@@ -1,0 +1,34 @@
+Created data agent SDK_RUNS_EXAMPLE_81906
+Created thread 8834748044626
+Kicked off background run 8834748044626-8834750865626 (status: in_progress)
+
+Kickoff request id: 7bde9e5c-2043-455e-8977-10a60475245f
+=== 0. AsyncRun.await() → AgentResponseView ===
+  run.await() used with no options
+  view.role:            assistant
+  view.text:            Snowflake is a cloud-based data platform that provides data storage, processing, and analytics as a fully managed service, enabling organizations to store and analyze large volumes of data with scalable compute and storage that operate independently.
+  view.content.length:  2
+  view.texts.length:    1
+  view.toolUses.length: 0
+  view.toolResults.len: 0
+  view.metadata.run_id: 8834748044626-8834750865626
+  view.events?.length:  25
+  replayed with awaitOptions: role=assistant, content.length=2
+
+=== 1. runs.stream (raw AsyncIterable) ===
+  drained 25 events, kinds=[metadata, response, response.status, response.suggested_queries, response.text, response.text.delta], highest seq=24
+
+=== 2. runs.resume (AgentRunStream wrapper) ===
+  text: Snowflake is a cloud-based data platform that provides data storage, processing, and analytics as a fully managed service, enabling organizations to store and analyze large volumes of data with scalable compute and storage that operate independently.
+  [end] fired
+  final text length: 250 chars
+
+=== 3. runs.stream with startingAfter ===
+  starting_after=12: got 12 events (vs 25 from the start)
+
+=== 4. runs.cancel (background run) ===
+  kicked off background run: status=in_progress run_id=8834748044626-8834750865630
+  cancel returned: assistant_message_id=8834750865634
+  post-cancel replay: 0 chars streamed
+
+Deleted thread 8834748044626 (ok) + agent SDK_RUNS_EXAMPLE_81906

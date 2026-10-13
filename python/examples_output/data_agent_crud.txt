@@ -1,0 +1,50 @@
+=== Create agent ===
+created SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_84918 (status: Agent SDK_EXAMPLE_AGENT_84918 successfully created.)
+
+=== List agents ===
+  PRIMARY_AGENT_SNOWFLAKE_INTELLIGENCE_OBJECT_DEFAULT (owner=EXAMPLE_ROLE)
+  RVERMA_TEST (owner=SP_TESTER)
+  SDK_ANALYST_EXAMPLE (owner=EXAMPLE_ROLE)
+  SDK_CONVERSATION_EXAMPLE_64361 (owner=EXAMPLE_ROLE)
+  SDK_EXAMPLE_AGENT_84918 (owner=EXAMPLE_ROLE)
+  ... (2 more)
+
+=== Describe agent ===
+  name: SDK_EXAMPLE_AGENT_84918
+  owner: EXAMPLE_ROLE
+  database.schema: SNOWFLAKE_INTELLIGENCE.PUBLIC
+
+=== Update agent ===
+updated comment (status: None)
+
+=== Run data agent (stream_data) ===
+I'll find the highest closing price for you.The highest closing price is **$409.97**, recorded for TSLA on 2021-11-04.
+
+=== Run pinned version VERSION$1 (stream_version) ===
+I'll check the stock data using the analyst tool.The lowest closing price is **$11.93**.
+
+=== Non-streaming pinned version (run_version, stream=False) ===
+  text: "TSLA's most recent closing price in the data is $250.22 (as of 2023-09-29)."
+  content items: 7, tool_uses=2
+
+=== run_data with stream=True (raw iterator) ===
+  drained 44 events, kinds=[response, response.status, response.suggested_queries, response.text, response.text.delta, response.thinking, response.thinking.delta, response.tool_result, response.tool_result.status, response.tool_use]
+
+=== run_version with stream=True (raw iterator) ===
+  drained 42 events, kinds=[response, response.status, response.suggested_queries, response.text, response.text.delta, response.thinking, response.thinking.delta, response.tool_result, response.tool_result.status, response.tool_use]
+
+=== Background pinned-version run (run_version, background=True -> BackgroundRun) ===
+  kickoff: status=in_progress run_id=8834748022930-8834750610806
+  view.role:            assistant
+  view.text (first 200): AAPL's most recent close was $171.21 on 2023-09-29, hovering in the $170–$179 range over the prior two weeks.
+
+
+  view.content items:   8
+  view.tool_uses:       2
+  view.tool_results:    2
+  view.metadata run_id: 8834748022930-8834750610806
+  view.events:          43
+  deleted bg thread 8834748022930
+
+=== Delete agent ===
+deleted SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_84918 (status: SDK_EXAMPLE_AGENT_84918 successfully dropped.)

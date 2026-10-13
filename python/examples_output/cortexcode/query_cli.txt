@@ -1,0 +1,23 @@
+=== interactive tools and session continuity ===
+control.server_info=True
+control.set_permission_mode=ok
+turn1.status=success
+turn1.message_types=['AssistantMessage', 'InitSystemMessage', 'ResultMessage', 'SystemMessage', 'SystemTextMessage', 'UserMessage']
+turn1.tool_calls=['skill', 'task', 'skill', 'bash', 'bash', 'bash', 'bash', 'bash', 'bash', 'bash', 'sql_execute', 'bash', 'bash', 'apply_patch', 'bash', 'read', 'bash', 'bash', 'bash']
+turn1.turns=14
+turn1.init_seen=True
+turn1.file_created=True
+turn1.file_contents=PUBLIC_PYTHON_SDK_MARKER
+turn2.status=success
+turn2.message_types=['AssistantMessage', 'ResultMessage']
+turn2.tool_calls=[]
+turn2.turns=1
+session.same_id=True
+session.context_recalled=True
+=== one-shot structured output ===
+structured.status=success
+structured.message_types=['AssistantMessage', 'InitSystemMessage', 'ResultMessage', 'UserMessage']
+structured.tool_calls=['skill', 'task', 'bash', 'bash', 'bash', 'bash', 'bash', 'skill']
+structured.turns=4
+structured.value={'sum': 42, 'factors': [20, 22]}
+structured.schema_valid=True

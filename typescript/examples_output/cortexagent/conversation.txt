@@ -1,0 +1,50 @@
+Created data agent SDK_CONVERSATION_EXAMPLE_66732 (status: Agent SDK_CONVERSATION_EXAMPLE_66732 successfully created.)
+
+Created conversation for thread: 8834748044446
+
+Turn 1 (lite):
+Snowflake Arctic is an enterprise-focused large language model (LLM) developed by Snowflake, released in April 2024. Here are the key points about it:
+
+**What it is**
+- An open-source LLM designed spe...
+
+Assistant message ID: 8834750865466, run ID: undefined, request ID: cc1fc7ed-0141-48a3-b73e-ea6ac3b19afc
+Raw event count: 137
+
+Turn 2 (lite follow-up):
+One key advantage is training efficiency: Snowflake Arctic was trained for roughly one-eighth the compute cost (under ~$2 million) compared to models of similar capability, whereas Llama 3 required substantially more training compute.
+
+Turn 3 (data agent):
+The highest closing price is **409.97**.
+
+Turn 3b (per-turn tools):
+Cloud computing is the on-demand availability of computer system resources, especially data storage and computing power, without direct active management by the user.
+
+Renamed thread (status: ok)
+
+History (8 messages):
+  #8834750862902 [assistant] Cloud computing is the on-demand availability of computer sy...
+  #8834750866462 [user] Search Wikipedia for 'cloud computing' and give me one sente...
+  #8834750865470 [assistant] The highest closing price is **409.97**.
+  #8834750866958 [user] What is the highest closing price?
+  #8834750862898 [assistant] One key advantage is training efficiency: Snowflake Arctic w...
+  #8834750863890 [user] In one sentence, name one advantage over Llama 3.
+  #8834750865466 [assistant] Snowflake Arctic is an enterprise-focused large language mod...
+  #8834750862346 [user] What is Snowflake Arctic?
+
+Attached to thread 8834748044446, parentMessageId seeded to 8834750862902
+
+Turn 4 (via attached convo):
+The first question you asked was: **"What is Snowflake Arctic?"**
+
+Branched from earlier turn (parentMessageId=8834750865466, expected=8834750865466)
+
+Turn 5 (branched from Turn 1):
+Here's one more:
+
+**Model family and embeddings**
+- Alongside the flagship Arctic LLM, Snowflake also released **Arctic Embed** — a family of small, high-performing open-source text-embedding models optimized for retrieval tasks (e.g., powering RAG and semantic search). These models delivered strong retrieval quality relative to their compact size, making them practical for enterprise search workloads running close to governed data in Snowflake.
+
+Want me to keep going with more bullets, or dive deeper into any one of them?
+
+Conversation + data agent deleted.

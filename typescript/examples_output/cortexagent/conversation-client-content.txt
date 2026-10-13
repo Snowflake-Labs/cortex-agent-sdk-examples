@@ -1,0 +1,6 @@
+tool-result response: "The synthetic tool result was not associated with a prior tool-use request."
+document response: "This is an employee data export CSV containing 5 employee records across 20 columns. It contains identity, contact, and employment details, including department, job title, salary, hire date, benefits, and performance rating."
+
+Run against snowflake_account on 2026-10-09 with
+@TEMP.PUBLIC.TEST_STAGE/test111/2025-10-03T16-04_data-export (2).csv. The
+document request completed successfully. Output is condensed and omits PII.

@@ -1,0 +1,23 @@
+[project]
+name = "cortex-agent-sdk-examples"
+version = "0.0.0"
+requires-python = ">=3.10"
+dependencies = [
+  "snowflake-cortex-agent-sdk>=0.0.2",
+  "snowflake-connector-python[secure-local-storage]>=4.7.1,<5",
+  "typing-extensions>=4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.6",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501"]
+

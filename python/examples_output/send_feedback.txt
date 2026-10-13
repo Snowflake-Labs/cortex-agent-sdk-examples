@@ -1,0 +1,25 @@
+Created data agent SDK_FEEDBACK_EXAMPLE_7242
+I'm a data analytics specialist, and I can help you explore and make sense of your data. Here's what I can do for you:
+
+**Data Analysis & Insights**
+- Answer questions about your business data using natural language
+- Calculate metrics, trends, and comparisons
+- Break down data by dimensions (time, category, region, etc.)
+- Investigate anomalies or patterns
+
+**Visualizations**
+- Turn query results into charts (time series, comparisons, rankings, distributions) to make insights clearer
+
+**Available Skills**
+- **Skill Development** — lets me create, update, review, or delete custom skills to capture reusable workflows.
+
+To give you the most useful answers, I work off a connected data model. To get started, just ask a question in plain language — for example:
+- "What were total sales last quarter?"
+- "Show me the top 10 customers by revenue"
+- "How has monthly revenue trended over the past year?"
+
+What would you like to explore? If you're not sure what's available, I can start by showing you what data and metrics exist in your model.
+
+request_id: 7373f070-9780-424d-897c-0a4d68ad5a00
+feedback recorded for request 7373f070-9780-424d-897c-0a4d68ad5a00 (status: None)
+Deleted agent SDK_FEEDBACK_EXAMPLE_7242

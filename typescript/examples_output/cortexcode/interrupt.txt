@@ -1,0 +1,11 @@
+=== 1. abortController interrupts a long Bash command ===
+  turn ended after roughly 4s (sleep was 120s)
+  finished well before the sleep would have: true
+  result subtype: error_during_execution
+  tool_use blocks in the interrupted turn: 0
+  assistant text: (none)
+
+=== 2. The session survives the interrupt ===
+  reply: 
+  CLI process still live: true
+  session closed

@@ -1,0 +1,23 @@
+=== NotFoundError (describe nonexistent thread) ===
+  Caught NotFoundError: Thread 999999999 does not exist or not authorized for this user
+  Status: 404
+  Request ID: 2187d49e-ee57-4d5c-837a-9cd8b74d1247
+
+=== request_with_response (get the request ID on success) ===
+  Request ID:   13d4b259-6b02-4787-9d6e-52a3ad6730dc
+  HTTP status:  200
+  Threads read: 3
+
+=== Callable auth (simulated token rotation) ===
+  [auth] get_token called (call #1)
+  Listed threads with callable auth
+
+=== Error hierarchy ===
+  BadRequestError (status=400): missing field
+    isinstance of CortexAgentAPIError: True
+  AuthenticationError (status=401): invalid token
+    isinstance of CortexAgentAPIError: True
+  NotFoundError (status=404): thread not found
+    isinstance of CortexAgentAPIError: True
+  RateLimitError (status=429): too many requests
+    isinstance of CortexAgentAPIError: True

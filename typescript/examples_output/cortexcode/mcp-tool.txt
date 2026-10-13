@@ -1,0 +1,21 @@
+=== 1. Register the SDK MCP server ===
+  server:  example-inventory
+  status:  connected
+  scope:   session
+  config:  {"type":"sdk","name":"example-inventory"}
+  tools:   [warehouse_code, widget_inventory_count]
+
+=== 2. The agent calls the tool ===
+  tool_use names:            [mcp__example-inventory__widget_inventory_count]
+  handler invocations in this process: 1
+  reply: 41
+
+=== 3. SDK servers cannot be toggled ===
+  SDK MCP server 'example-inventory' cannot be toggled
+  status unchanged: connected
+
+=== 4. setMcpServers({}) clears SDK-managed session servers ===
+  added:   []
+  removed: []
+  errors:  {}
+  session closed

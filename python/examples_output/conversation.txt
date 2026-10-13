@@ -1,0 +1,47 @@
+Created data agent SDK_CONVERSATION_EXAMPLE_6805 (status: Agent SDK_CONVERSATION_EXAMPLE_6805 successfully created.)
+
+Created conversation for thread: 8834748022766
+
+Turn 1 (lite):
+Snowflake Arctic is a family of open, enterprise-focused AI models released by Snowflake in 2024. It has two main components:
+
+**Arctic LLM (the large language model)**
+- A large language model built ...
+
+Assistant message ID: 8834750609714, run ID: None, request ID: da233d29-9485-4acc-b6a1-3e253a2a33bf
+Raw event count: 166
+
+Turn 2 (lite follow-up):
+Snowflake Arctic's Dense-MoE architecture activates only ~17B of its ~480B parameters per token, making it far more compute-efficient to train and serve than a comparably capable dense model like Llama 3 70B.
+
+Turn 3 (data agent):
+The highest closing price is **$409.97**.
+
+Turn 3b (per-turn tools):
+Cloud computing is the on-demand availability of computer system resources—especially data storage and computing power—over the Internet, without direct active management by the user.
+
+Renamed thread (status: None)
+
+History (8 messages):
+  #8834750609274 [assistant] Cloud computing is the on-demand availability of computer sy...
+  #8834750606914 [user] Search Wikipedia for 'cloud computing' and give me one sente...
+  #8834750609722 [assistant] The highest closing price is **$409.97**.
+  #8834750608466 [user] What is the highest closing price?
+  #8834750609718 [assistant] Snowflake Arctic's Dense-MoE architecture activates only ~17...
+  #8834750606910 [user] In one sentence, name one advantage over Llama 3.
+  #8834750609714 [assistant] Snowflake Arctic is a family of open, enterprise-focused AI ...
+  #8834750608462 [user] What is Snowflake Arctic?
+
+Attached to thread 8834748022766, parent_message_id seeded to 8834750609274
+
+Turn 4 (via attached convo):
+The first question you asked was: **"What is Snowflake Arctic?"**
+
+Branched from earlier turn (parent_message_id=8834750609714, expected=8834750609714)
+
+Turn 5 (branched from Turn 1):
+One more bullet building on the overview:
+
+- **Ecosystem and availability**: Beyond Snowflake's own platform, Arctic models were made broadly accessible through common AI channels—including Hugging Face for the weights, and partners/serving platforms (e.g., NVIDIA API catalog, Replicate, and other model-hosting services)—so developers can experiment with or deploy Arctic outside of Snowflake as well as within it. Snowflake also published detailed training "cookbook" resources to help others learn from how the model was built efficiently.
+
+Conversation + data agent deleted.

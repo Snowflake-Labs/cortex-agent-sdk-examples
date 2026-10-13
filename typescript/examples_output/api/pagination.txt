@@ -1,0 +1,28 @@
+=== Auto-pagination (page_size=3) ===
+  thread_id=8834748044426 name=""
+  thread_id=8834748044322 name=""
+  thread_id=8834748044314 name=""
+  thread_id=8834748044310 name=""
+  thread_id=8834748044306 name=""
+  thread_id=8834748044302 name=""
+  thread_id=8834748044298 name=""
+  thread_id=8834748044294 name=""
+  thread_id=8834748044286 name=""
+  thread_id=8834748044278 name=""
+  (iterated 10 threads)
+
+=== Manual pagination ===
+  Page 1: 2 threads
+    thread_id=8834748044426
+    thread_id=8834748044322
+  Page 2: 2 threads
+    thread_id=8834748044314
+    thread_id=8834748044310
+  Page 3: 2 threads
+    thread_id=8834748044306
+    thread_id=8834748044302
+  (stopping at page 3 for demo)
+
+=== First page only (.data property) ===
+  Got 5 threads on first page
+  hasMore: true

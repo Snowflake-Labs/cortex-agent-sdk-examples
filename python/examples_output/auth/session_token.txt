@@ -1,0 +1,5 @@
+conversation=8834748143510
+run=8834748143510-8834751670502
+response='authentication succeeded'
+
+Recorded against snowflake_account on 2026-10-09 with the session-token example.

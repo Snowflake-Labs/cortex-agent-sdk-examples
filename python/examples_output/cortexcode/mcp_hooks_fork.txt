@@ -1,0 +1,16 @@
+=== in-process MCP tool and hooks ===
+mcp.status=connected
+mcp.tools=['lookup_fork_code']
+mcp.run_status=success
+mcp.tool_calls=['skill', 'tool_search', 'direct_tool_calling', 'mcp__sdk-example-tools__lookup_fork_code']
+mcp.handler_called_once=True
+hooks.pre_tool_calls=['mcp__sdk-example-tools__lookup_fork_code']
+hooks.post_tool_calls=['mcp__sdk-example-tools__lookup_fork_code']
+hooks.pre_and_post_seen=True
+mcp.result_used=True
+=== fork and resume ===
+fork.new_session=True
+fork.id_differs=True
+fork.run_status=success
+fork.resumed_new_session=True
+fork.context_preserved=True

@@ -1,0 +1,51 @@
+=== Create agent ===
+created SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_67762 (status: Agent SDK_EXAMPLE_AGENT_67762 successfully created.)
+
+=== List agents ===
+  PRIMARY_AGENT_SNOWFLAKE_INTELLIGENCE_OBJECT_DEFAULT (owner=EXAMPLE_ROLE)
+  RVERMA_TEST (owner=SP_TESTER)
+  SDK_ALL_EVENTS_EXAMPLE_65680 (owner=EXAMPLE_ROLE)
+  SDK_ANALYST_EXAMPLE (owner=EXAMPLE_ROLE)
+  SDK_CONVERSATION_EXAMPLE_64361 (owner=EXAMPLE_ROLE)
+  ... (5 more)
+
+=== Describe agent ===
+  name: SDK_EXAMPLE_AGENT_67762
+  owner: EXAMPLE_ROLE
+  database.schema: SNOWFLAKE_INTELLIGENCE.PUBLIC
+
+=== Update agent ===
+updated comment (status: ok)
+
+=== Run data agent (streamData) ===
+I'll look up the stock data for you.I'll query for the highest closing price.
+
+The highest closing price is **$409.97**.
+
+=== Run pinned version VERSION$1 (streamVersion) ===
+I'll help with that. Let me load the analyst tool to query the stock data.The lowest closing price is **11.931333**.
+
+=== Non-streaming pinned version (runVersion, stream:false) ===
+  text: "TSLA's most recent closing price in the data was $250.22 on 2023-09-29."
+  content items: 7, toolUses=2
+
+=== runData with stream:true (raw AsyncIterable) ===
+  drained 49 events, kinds=[response, response.server_tool_blocks, response.status, response.suggested_queries, response.text, response.text.delta, response.thinking, response.thinking.delta, response.tool_result, response.tool_result.status, response.tool_use]
+
+=== runVersion with stream:true (raw AsyncIterable) ===
+  drained 47 events, kinds=[response, response.server_tool_blocks, response.status, response.suggested_queries, response.text, response.text.delta, response.thinking, response.thinking.delta, response.tool_result, response.tool_result.status, response.tool_use]
+
+=== Background pinned-version run (runVersion, background:true → AsyncRun) ===
+  kickoff: status=in_progress run_id=8834748044450-8834750862914
+  view.role:            assistant
+  view.text (first 200): AAPL's most recent closing price in the data was $171.21 on 2023-09-29.
+  view.content.length:  7
+  view.texts.length:    1
+  view.toolUses.length: 2
+  view.toolResults.len: 2
+  view.metadata.run_id: 8834748044450-8834750862914
+  view.events?.length:  39
+  deleted bg thread 8834748044450
+
+=== Delete agent ===
+deleted SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_67762 (status: SDK_EXAMPLE_AGENT_67762 successfully dropped.)

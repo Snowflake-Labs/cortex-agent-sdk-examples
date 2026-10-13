@@ -1,0 +1,27 @@
+=== 1. A successful result ===
+  subtype:                success
+  is_error:               false
+  num_turns:              3
+  result:                 alpha.txt contents
+  session_id set:         true
+  uuid set:               true
+  duration_ms > 0:        true
+  permission_denials:     0
+  usage.input_tokens:            8058
+  usage.output_tokens:           208
+  usage.cache_read_input_tokens: 71616
+  structured_output present:     false
+
+=== 2. Per-message usage on assistant events ===
+  [0] blocks=thinking usage=(absent)
+  [1] blocks=tool_use usage=(absent)
+  [2] blocks=thinking usage=(absent)
+  [3] blocks=text usage=(absent)
+  assistant messages: 4
+  summed output_tokens: 0
+
+=== 3. A non-success result: error_max_turns ===
+  subtype:  error_max_turns
+  is_error: true
+  num_turns: 2
+  errors:   ["Max tool call iterations reached"]

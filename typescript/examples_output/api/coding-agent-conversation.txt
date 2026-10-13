@@ -1,0 +1,17 @@
+{"level":"INFO","message":"[11:58:27.680 AM]: Connection configuration file is read from path: /Users/example_user/.snowflake/connections.toml. Checksum: <checksum>"}
+{"level":"INFO","message":"[11:58:27.694 AM]: Creating new connection object"}
+{"level":"INFO","message":"[11:58:27.697 AM]: Creating Connection[id: <connection-id>] with host: snowflake_account.snowflakecomputing.com, account: snowflake_account, accessUrl: https://snowflake_account.snowflakecomputing.com, user: EXAMPLE_USER, role: EXAMPLE_ROLE, database: undefined, schema: undefined, warehouse: EXAMPLE_WAREHOUSE, proxy was not configured, password is provided, region: undefined, authenticator: SNOWFLAKE, ocsp mode: FAIL_OPEN, os: darwin, os version: 25.6.0"}
+{"level":"INFO","message":"[11:58:27.697 AM]: Connection[id: <connection-id>] additional details: passcode in password is provided, passcode is not provided, private key is not provided, application: undefined, client name: snowflake-sdk, client version: 3.0.0, retry timeout: 300, private key path: undefined, private key pass is not provided, client store temporary credential: false, browser response timeout: 120000"}
+{"level":"INFO","message":"[11:58:27.697 AM]: Connection[id: <connection-id>] - connection object created successfully."}
+{"level":"INFO","message":"[11:58:27.697 AM]: Connection[id: <connection-id>] - async connecting. Associated Snowflake domain: GLOBAL"}
+{"level":"INFO","message":"[11:58:27.697 AM]: Trying to initialize Easy Logging"}
+{"level":"INFO","message":"[11:58:27.717 AM]: No client config detected."}
+{"level":"INFO","message":"[11:58:27.718 AM]: No config file path found. Client config will not be used."}
+{"level":"INFO","message":"[11:58:27.718 AM]: Easy Logging is disabled as no config has been found"}
+{"level":"INFO","message":"[11:58:27.718 AM]: Connection[id: <connection-id>] - authentication successful using: SNOWFLAKE"}
+{"level":"INFO","message":"[11:58:28.401 AM]: Connection[id: <connection-id>] - connection established successfully after 703.66 milliseconds"}
+conversation: 8834748137814
+first: CODING_AGENT_FIRST_OK (8 events; run 8834748137814-8834751636754)
+attached: CODING_AGENT_ATTACH_OK
+branch: CODING_AGENT_BRANCH_OK
+replayed 7 events for run 8834748137814-8834751636754

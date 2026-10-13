@@ -1,0 +1,14 @@
+lite_agent_run_with_mcp_servers
+  mcp_server: CORTEX_AGENT_SDK_EXAMPLES.PUBLIC.SDK_SQL_EXEC_MCP
+  request_id: <request-id>
+  tool_uses: ["sdk_sql_exec_mcp_sql_exec_tool"]
+  used_mcp_tool: true
+  text: The current user is **EXAMPLE_USER** and the current role is **EXAMPLE_ROLE**.
+data_agent_create_with_mcp_servers
+  agent: CORTEX_AGENT_SDK_EXAMPLES.PUBLIC.SDK_MCP_EXAMPLE_AGENT_<pid>
+  request_id: <request-id>
+  tool_uses: ["sdk_sql_exec_mcp_sql_exec_tool"]
+  used_mcp_tool: true
+  text: The current user is **EXAMPLE_USER**.
+cleanup
+  deleted_agent: CORTEX_AGENT_SDK_EXAMPLES.PUBLIC.SDK_MCP_EXAMPLE_AGENT_<pid>

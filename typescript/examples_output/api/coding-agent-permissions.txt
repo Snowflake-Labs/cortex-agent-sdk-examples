@@ -1,0 +1,21 @@
+always_allow result
+  text: The stdout from the command is:
+
+```
+permission-example-ok
+```
+  request_id: <request-id>
+  emitted tool permission: false
+  emitted client_tool_use_request status: false
+always_ask result
+  first_request_id: <request-id>
+  emitted tool permission: true
+  emitted client_tool_use_request status: true
+  permission options: ["Allow this command","Allow all bash for this session","Deny"]
+  selected decision: Allow this command
+  follow_up_request_id: <request-id>
+  continued text: The stdout from the command is:
+
+```
+permission-example-ok
+```

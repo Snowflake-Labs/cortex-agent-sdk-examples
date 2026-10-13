@@ -1,0 +1,43 @@
+=== 1. text_stream ===
+  Snowflake is a cloud-based data platform that provides data warehousing, data lakes, data engineering, data sharing, and analytics capabilities as a fully managed service, allowing organizations to store, process, and analyze large volumes of data with scalable, on-demand compute.
+
+=== 2. callbacks + final_text ===
+  answer:     Blue.
+  statuses:   3 status event(s)
+  request_id: 0987fab9-95ff-488e-85a7-c9930c514318
+
+=== 3. three concurrent runs vs three sequential ===
+  'Name a database.' -> PostgreSQL is a widely used open-source relational database.
+  'Name a cloud.' -> Snowflake.
+  'Name a file format.' -> JSON (JavaScript Object Notation) is one common file format.
+  concurrent: 7.3s
+  sequential: 14.6s
+  speedup:    2.0x
+
+=== 4. AsyncThreadsPage (async for) ===
+  first page: 3 thread(s), has_more=True
+  auto-paginated over 5 thread(s)
+
+=== 5. AsyncConversation multi-turn ===
+  thread 8834748022890
+  turn 1: Snowflake Arctic is a family of enterprise-focused AI models developed by Snowfl
+  turn 2: One advantage is efficiency: Snowflake Arctic activates only ~17B of its 480B pa
+  parent_message_id now 8834750612074
+  history: 4 message(s)
+
+=== 6. background run + await run.wait() ===
+  kickoff: status=in_progress run_id=8834748022894-8834750610758
+  final text: Snowflake is a cloud-based data platform that provides scalable data storage, pr
+  events:     25
+  deleted thread 8834748022894
+
+=== 7. cancelling a task mid-stream ===
+  cancelled mid-answer after 169 chars
+
+=== 8. with_raw_response ===
+  status:        200
+  request_id:    a927f5db-6a05-4f4d-95fc-20d39d0cc12c
+  retries_taken: 0
+  threads read:  1
+
+Deleted conversation thread 8834748022890

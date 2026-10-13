@@ -1,0 +1,19 @@
+=== 1. Establish a fact and capture the session id ===
+  reply: Acknowledged: MERIDIAN noted.
+  session id captured: true
+
+=== 2. resume continues the same session ===
+  reply: MERIDIAN
+  recalled the code word: true
+
+=== 3. forkSession branches into a new session id ===
+  fork returned an id:     true
+  differs from the source: true
+  fork recalls the code word: true
+  fork reply: MERIDIAN
+
+=== 4. Writing to the fork leaves the source untouched ===
+  fork sees:   MERIDIAN, ORACLE
+  source sees: MERIDIAN
+  fork has ORACLE:   true
+  source has ORACLE: false
