@@ -70,7 +70,3 @@ CORTEX_EXAMPLE_CONNECTION=default \
 
 Expected output captures live under `typescript/examples_output/` and `python/examples_output/`.
 They use placeholder request IDs and public-safe account names, and are intended to show the shape of successful runs, not exact byte-for-byte output from your account.
-
-## MCP examples
-
-The MCP examples demonstrate attaching Snowflake `MCP SERVER` objects to lite `agent:run` and data-agent specs. Set `SNOWFLAKE_MCP_SERVER` to your own MCP server FQN, or run with a Snowflake connection profile that can create the example SQL MCP server.
