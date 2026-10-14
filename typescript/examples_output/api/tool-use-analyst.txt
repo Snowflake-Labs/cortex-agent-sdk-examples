@@ -1,5 +1,5 @@
 === Analyst tool — lite agent path (inline tool config) ===
-  semantic_view: SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA
+  semantic_view: MY_DATABASE.PUBLIC.STOCKS_DATA
 
   [status] planning: Planning the next steps
   [status] extracting_tool_calls: Choosing data sources to use
@@ -78,6 +78,6 @@ Want me to rank instead by all-time highest close, or focus on a specific date? 
 
 
 === Analyst tool — named agent path ===
-  agent: SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_ANALYST_EXAMPLE
+  agent: MY_DATABASE.PUBLIC.SDK_ANALYST_EXAMPLE
 
 

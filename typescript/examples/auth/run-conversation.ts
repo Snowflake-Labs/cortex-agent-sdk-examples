@@ -1,5 +1,7 @@
+import type { CortexAgentClient } from "@snowflake/cortex-agent-sdk";
+
 /** Runs a minimal conversation to verify an authenticator against the Agent API. */
-export async function runConversation(client) {
+export async function runConversation(client: CortexAgentClient): Promise<void> {
   const conversation = await client.conversations.create({
     thread: { origin_application: "cortex_agent_sdk" },
     agent: { type: "inline", spec: { models: { orchestration: "auto" } } },

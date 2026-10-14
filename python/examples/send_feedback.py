@@ -20,17 +20,16 @@ import sys
 from cortex_agent_sdk.api import CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
-    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
 
 target = {
-    "database": os.getenv("SNOWFLAKE_DATABASE", "SNOWFLAKE_INTELLIGENCE"),
+    "database": os.environ["SNOWFLAKE_DATABASE"],
     "schema": os.getenv("SNOWFLAKE_SCHEMA", "PUBLIC"),
     "name": f"SDK_FEEDBACK_EXAMPLE_{os.getpid()}",
 }
-semantic_view = os.getenv("SNOWFLAKE_SEMANTIC_VIEW", "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA")
+semantic_view = os.environ["SNOWFLAKE_SEMANTIC_VIEW"]
 warehouse = os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
 
 client.agent.create(

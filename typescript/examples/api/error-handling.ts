@@ -14,9 +14,7 @@ import {
 } from "@snowflake/cortex-agent-sdk/api";
 
 const client: CortexAgentClient = new CortexAgentClient({
-  ...(process.env.SNOWFLAKE_HOST
-    ? { baseUrl: `https://${process.env.SNOWFLAKE_HOST}` }
-    : { account: process.env.SNOWFLAKE_ACCOUNT! }),
+  account: process.env.SNOWFLAKE_ACCOUNT!,
   auth: process.env.SNOWFLAKE_PAT!,
   retryPolicy: { maxRetries: 2 },
 });
@@ -56,9 +54,7 @@ try {
 console.log("\n=== Callable auth (simulated token rotation) ===");
 let callCount = 0;
 const rotatingClient: CortexAgentClient = new CortexAgentClient({
-  ...(process.env.SNOWFLAKE_HOST
-    ? { baseUrl: `https://${process.env.SNOWFLAKE_HOST}` }
-    : { account: process.env.SNOWFLAKE_ACCOUNT! }),
+  account: process.env.SNOWFLAKE_ACCOUNT!,
   auth: () => {
     callCount++;
     console.log(`  [auth] getToken called (call #${callCount})`);

@@ -1,5 +1,5 @@
 === Analyst tool — lite agent path (inline tool config) ===
-  semantic_view: SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA
+  semantic_view: MY_DATABASE.PUBLIC.STOCKS_DATA
 
   [status] planning: Planning the next steps
 I'll help with that. Let me load the analyst tool to query the stock data.  [status] extracting_tool_calls: Choosing data sources to use
@@ -89,7 +89,7 @@ Goldman Sachs (GS) leads at $323.57, followed by Microsoft (MSFT) at $315.75. No
 
 
 === Analyst tool — named agent path ===
-  agent: SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_ANALYST_EXAMPLE_8011
+  agent: MY_DATABASE.PUBLIC.SDK_ANALYST_EXAMPLE_8011
 
   [status] planning: Planning the next steps
 I'll check what data is available to analyze.  [thinking] Searching for relevant tools...

@@ -7,7 +7,6 @@ import os
 from cortex_agent_sdk import AgentResponse, Conversation, CortexAgentClient, Turn
 
 client: CortexAgentClient = CortexAgentClient(
-    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
@@ -26,7 +25,7 @@ data_turn: Turn = conversation.send(
     agent={
         "type": "data",
         "spec": {
-            "database": os.getenv("SNOWFLAKE_DATABASE", "SNOWFLAKE_INTELLIGENCE"),
+            "database": os.environ["SNOWFLAKE_DATABASE"],
             "schema": os.getenv("SNOWFLAKE_SCHEMA", "PUBLIC"),
             "name": os.environ["SNOWFLAKE_DATA_AGENT"],
         },

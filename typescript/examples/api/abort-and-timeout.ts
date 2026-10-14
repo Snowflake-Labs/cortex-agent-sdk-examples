@@ -11,9 +11,7 @@ import {
 } from "@snowflake/cortex-agent-sdk/api";
 
 const client: CortexAgentClient = new CortexAgentClient({
-  ...(process.env.SNOWFLAKE_HOST
-    ? { baseUrl: `https://${process.env.SNOWFLAKE_HOST}` }
-    : { account: process.env.SNOWFLAKE_ACCOUNT! }),
+  account: process.env.SNOWFLAKE_ACCOUNT!,
   auth: process.env.SNOWFLAKE_PAT!,
   timeoutMs: 30_000,
 });

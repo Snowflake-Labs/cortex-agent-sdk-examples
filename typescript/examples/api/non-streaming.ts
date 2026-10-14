@@ -21,9 +21,7 @@ import {
 } from "@snowflake/cortex-agent-sdk/api";
 
 const client: CortexAgentClient = new CortexAgentClient({
-  ...(process.env.SNOWFLAKE_HOST
-    ? { baseUrl: `https://${process.env.SNOWFLAKE_HOST}` }
-    : { account: process.env.SNOWFLAKE_ACCOUNT! }),
+  account: process.env.SNOWFLAKE_ACCOUNT!,
   auth: process.env.SNOWFLAKE_PAT!,
 });
 
@@ -98,13 +96,12 @@ try {
 // run a non-streaming query, then clean up.
 console.log("\n=== Data agent (non-streaming) ===");
 const target: DataAgentTarget = {
-  database: process.env.SNOWFLAKE_DATABASE ?? "SNOWFLAKE_INTELLIGENCE",
+  database: process.env.SNOWFLAKE_DATABASE!,
   schema: process.env.SNOWFLAKE_SCHEMA ?? "PUBLIC",
   name: `SDK_NONSTREAMING_EXAMPLE_${process.pid}`,
 };
 const semanticView: string =
-  process.env.SNOWFLAKE_SEMANTIC_VIEW ??
-  "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA";
+  process.env.SNOWFLAKE_SEMANTIC_VIEW!;
 const warehouse: string = process.env.SNOWFLAKE_WAREHOUSE ?? "COMPUTE_WH";
 
 const agentSpec: CortexAgentCreateRequest = {

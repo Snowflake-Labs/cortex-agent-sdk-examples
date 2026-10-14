@@ -24,14 +24,12 @@ import {
 } from "@snowflake/cortex-agent-sdk/api";
 
 const client: CortexAgentClient = new CortexAgentClient({
-  ...(process.env.SNOWFLAKE_HOST
-    ? { baseUrl: `https://${process.env.SNOWFLAKE_HOST}` }
-    : { account: process.env.SNOWFLAKE_ACCOUNT! }),
+  account: process.env.SNOWFLAKE_ACCOUNT!,
   auth: process.env.SNOWFLAKE_PAT!,
 });
 
 const target: AgentSchemaTarget = {
-  database: process.env.SNOWFLAKE_DATABASE ?? "SNOWFLAKE_INTELLIGENCE",
+  database: process.env.SNOWFLAKE_DATABASE!,
   schema: process.env.SNOWFLAKE_SCHEMA ?? "PUBLIC",
 };
 const agentName: string = `SDK_EXAMPLE_AGENT_${process.pid}`;
@@ -41,8 +39,7 @@ const versionTarget: DataAgentVersionTarget = {
   version: "VERSION$1",
 };
 const semanticView: string =
-  process.env.SNOWFLAKE_SEMANTIC_VIEW ??
-  "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA";
+  process.env.SNOWFLAKE_SEMANTIC_VIEW!;
 const warehouse: string = process.env.SNOWFLAKE_WAREHOUSE ?? "COMPUTE_WH";
 
 const agentSpec: CortexAgentCreateRequest = {

@@ -9,7 +9,7 @@
   text: "Blue."
 
 === Data agent (non-streaming) ===
-  created SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_NONSTREAMING_EXAMPLE_68065 (Agent SDK_NONSTREAMING_EXAMPLE_68065 successfully created.)
+  created MY_DATABASE.PUBLIC.SDK_NONSTREAMING_EXAMPLE_68065 (Agent SDK_NONSTREAMING_EXAMPLE_68065 successfully created.)
   role: assistant
   content items: 12
   metadata.run_id: -

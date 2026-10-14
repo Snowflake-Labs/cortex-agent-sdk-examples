@@ -21,3 +21,7 @@ target-version = "py310"
 select = ["E", "F", "W", "I", "UP", "B"]
 ignore = ["E501"]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.backends"
+

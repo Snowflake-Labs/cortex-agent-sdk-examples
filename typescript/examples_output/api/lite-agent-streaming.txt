@@ -1,6 +1,6 @@
 === Lite agent with inline tools (analyst + cortex_search) ===
-  semantic_view:  SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA
-  search_service: A11NSCHARFE.WIKIPEDIA_SEARCH.WIKIPEDIA_SEARCH_SERVICE
+  semantic_view:  MY_DATABASE.PUBLIC.STOCKS_DATA
+  search_service: MY_DB.MY_SCHEMA.MY_SEARCH_SERVICE
 
   [status] planning: Planning the next steps
   [thinking] 

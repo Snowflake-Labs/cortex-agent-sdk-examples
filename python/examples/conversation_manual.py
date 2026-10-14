@@ -23,7 +23,6 @@ import os
 from cortex_agent_sdk.api import AgentEvent, CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
-    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

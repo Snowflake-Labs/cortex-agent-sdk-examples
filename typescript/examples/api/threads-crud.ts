@@ -18,9 +18,7 @@ import {
 } from "@snowflake/cortex-agent-sdk/api";
 
 const client: CortexAgentClient = new CortexAgentClient({
-  ...(process.env.SNOWFLAKE_HOST
-    ? { baseUrl: `https://${process.env.SNOWFLAKE_HOST}` }
-    : { account: process.env.SNOWFLAKE_ACCOUNT! }),
+  account: process.env.SNOWFLAKE_ACCOUNT!,
   auth: process.env.SNOWFLAKE_PAT!,
 });
 
@@ -36,11 +34,9 @@ console.log("created thread", threadId);
 //    tool_use, tool_result, table, suggested_queries) for ThreadMessageView
 //    to introspect below.
 const semanticView: string =
-  process.env.SNOWFLAKE_SEMANTIC_VIEW ??
-  "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA";
+  process.env.SNOWFLAKE_SEMANTIC_VIEW!;
 const searchService: string =
-  process.env.SNOWFLAKE_SEARCH_SERVICE ??
-  "A11NSCHARFE.WIKIPEDIA_SEARCH.WIKIPEDIA_SEARCH_SERVICE";
+  process.env.SNOWFLAKE_SEARCH_SERVICE!;
 const warehouse: string = process.env.SNOWFLAKE_WAREHOUSE ?? "COMPUTE_WH";
 
 const stream: AsyncIterable<ServerSentEvent> = client.agent.run({

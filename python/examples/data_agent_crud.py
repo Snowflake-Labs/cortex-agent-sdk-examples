@@ -19,19 +19,18 @@ from cortex_agent_sdk.api import (
 )
 
 client = CortexAgentClient(
-    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
 
 schema_target = {
-    "database": os.getenv("SNOWFLAKE_DATABASE", "SNOWFLAKE_INTELLIGENCE"),
+    "database": os.environ["SNOWFLAKE_DATABASE"],
     "schema": os.getenv("SNOWFLAKE_SCHEMA", "PUBLIC"),
 }
 agent_name = f"SDK_EXAMPLE_AGENT_{os.getpid()}"
 agent_target = {**schema_target, "name": agent_name}
 version_target = {**agent_target, "version": "VERSION$1"}
-semantic_view = os.getenv("SNOWFLAKE_SEMANTIC_VIEW", "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA")
+semantic_view = os.environ["SNOWFLAKE_SEMANTIC_VIEW"]
 warehouse = os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
 
 agent_spec = {

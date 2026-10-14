@@ -1,7 +1,7 @@
-Created agent SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_66346 (Agent SDK_ALL_EVENTS_EXAMPLE_66346 successfully created.)
+Created agent MY_DATABASE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_66346 (Agent SDK_ALL_EVENTS_EXAMPLE_66346 successfully created.)
 
 === All StreamEvent callbacks (data agent / spec events) ===
-  agent: SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_66346
+  agent: MY_DATABASE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_66346
 
   [status] planning: Planning the next steps
   [thinking] Need the analyst tool. Let me search for it.Searching for relevant tools...

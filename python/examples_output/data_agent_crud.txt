@@ -1,8 +1,8 @@
 === Create agent ===
-created SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_84918 (status: Agent SDK_EXAMPLE_AGENT_84918 successfully created.)
+created MY_DATABASE.PUBLIC.SDK_EXAMPLE_AGENT_84918 (status: Agent SDK_EXAMPLE_AGENT_84918 successfully created.)
 
 === List agents ===
-  PRIMARY_AGENT_SNOWFLAKE_INTELLIGENCE_OBJECT_DEFAULT (owner=EXAMPLE_ROLE)
+  PRIMARY_AGENT_MY_DATABASE_OBJECT_DEFAULT (owner=EXAMPLE_ROLE)
   RVERMA_TEST (owner=SP_TESTER)
   SDK_ANALYST_EXAMPLE (owner=EXAMPLE_ROLE)
   SDK_CONVERSATION_EXAMPLE_64361 (owner=EXAMPLE_ROLE)
@@ -12,7 +12,7 @@ created SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_84918 (status: Agent SDK
 === Describe agent ===
   name: SDK_EXAMPLE_AGENT_84918
   owner: EXAMPLE_ROLE
-  database.schema: SNOWFLAKE_INTELLIGENCE.PUBLIC
+  database.schema: MY_DATABASE.PUBLIC
 
 === Update agent ===
 updated comment (status: None)
@@ -47,4 +47,4 @@ I'll check the stock data using the analyst tool.The lowest closing price is **$
   deleted bg thread 8834748022930
 
 === Delete agent ===
-deleted SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_84918 (status: SDK_EXAMPLE_AGENT_84918 successfully dropped.)
+deleted MY_DATABASE.PUBLIC.SDK_EXAMPLE_AGENT_84918 (status: SDK_EXAMPLE_AGENT_84918 successfully dropped.)

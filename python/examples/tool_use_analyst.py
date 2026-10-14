@@ -20,12 +20,11 @@ import sys
 from cortex_agent_sdk.api import AgentEvent, CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
-    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
 
-semantic_view = os.getenv("SNOWFLAKE_SEMANTIC_VIEW", "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA")
+semantic_view = os.environ["SNOWFLAKE_SEMANTIC_VIEW"]
 warehouse = os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
 
 # --- Example 1: lite agent path with inline tool/tool_resources ---
@@ -92,7 +91,7 @@ print("\n")
 # --- Example 2: named agent path (tool baked into the agent) ---
 print("=== Analyst tool — named agent path ===")
 agent = {
-    "database": os.getenv("SNOWFLAKE_DATABASE", "SNOWFLAKE_INTELLIGENCE"),
+    "database": os.environ["SNOWFLAKE_DATABASE"],
     "schema": os.getenv("SNOWFLAKE_SCHEMA", "PUBLIC"),
     "name": os.getenv("SNOWFLAKE_AGENT", f"SDK_ANALYST_EXAMPLE_{os.getpid()}"),
 }

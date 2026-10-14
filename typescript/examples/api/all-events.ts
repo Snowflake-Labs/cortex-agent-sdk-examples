@@ -44,22 +44,19 @@ import {
 } from "@snowflake/cortex-agent-sdk/api";
 
 const client: CortexAgentClient = new CortexAgentClient({
-  ...(process.env.SNOWFLAKE_HOST
-    ? { baseUrl: `https://${process.env.SNOWFLAKE_HOST}` }
-    : { account: process.env.SNOWFLAKE_ACCOUNT! }),
+  account: process.env.SNOWFLAKE_ACCOUNT!,
   auth: process.env.SNOWFLAKE_PAT!,
 });
 
 // Create an agent bound to a semantic view so runs actually exercise tool_use,
 // tool_result, analyst deltas, and table events — not just text/thinking.
 const agent: DataAgentTarget = {
-  database: process.env.SNOWFLAKE_DATABASE ?? "SNOWFLAKE_INTELLIGENCE",
+  database: process.env.SNOWFLAKE_DATABASE!,
   schema: process.env.SNOWFLAKE_SCHEMA ?? "PUBLIC",
   name: `SDK_ALL_EVENTS_EXAMPLE_${process.pid}`,
 };
 const semanticView: string =
-  process.env.SNOWFLAKE_SEMANTIC_VIEW ??
-  "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA";
+  process.env.SNOWFLAKE_SEMANTIC_VIEW!;
 const warehouse: string = process.env.SNOWFLAKE_WAREHOUSE ?? "COMPUTE_WH";
 
 const agentSpec: CortexAgentCreateRequest = {

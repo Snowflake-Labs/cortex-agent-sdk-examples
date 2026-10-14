@@ -25,7 +25,6 @@ from cortex_agent_sdk.api import (
 )
 
 client = CortexAgentClient(
-    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
@@ -33,11 +32,11 @@ client = CortexAgentClient(
 # Create an agent bound to a semantic view so runs actually exercise tool_use,
 # tool_result, analyst deltas, and table events — not just text/thinking.
 agent = {
-    "database": os.getenv("SNOWFLAKE_DATABASE", "SNOWFLAKE_INTELLIGENCE"),
+    "database": os.environ["SNOWFLAKE_DATABASE"],
     "schema": os.getenv("SNOWFLAKE_SCHEMA", "PUBLIC"),
     "name": f"SDK_ALL_EVENTS_EXAMPLE_{os.getpid()}",
 }
-semantic_view = os.getenv("SNOWFLAKE_SEMANTIC_VIEW", "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA")
+semantic_view = os.environ["SNOWFLAKE_SEMANTIC_VIEW"]
 warehouse = os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
 
 create_result = client.agent.create(

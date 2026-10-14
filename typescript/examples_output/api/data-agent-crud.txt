@@ -1,8 +1,8 @@
 === Create agent ===
-created SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_67762 (status: Agent SDK_EXAMPLE_AGENT_67762 successfully created.)
+created MY_DATABASE.PUBLIC.SDK_EXAMPLE_AGENT_67762 (status: Agent SDK_EXAMPLE_AGENT_67762 successfully created.)
 
 === List agents ===
-  PRIMARY_AGENT_SNOWFLAKE_INTELLIGENCE_OBJECT_DEFAULT (owner=EXAMPLE_ROLE)
+  PRIMARY_AGENT_MY_DATABASE_OBJECT_DEFAULT (owner=EXAMPLE_ROLE)
   RVERMA_TEST (owner=SP_TESTER)
   SDK_ALL_EVENTS_EXAMPLE_65680 (owner=EXAMPLE_ROLE)
   SDK_ANALYST_EXAMPLE (owner=EXAMPLE_ROLE)
@@ -12,7 +12,7 @@ created SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_67762 (status: Agent SDK
 === Describe agent ===
   name: SDK_EXAMPLE_AGENT_67762
   owner: EXAMPLE_ROLE
-  database.schema: SNOWFLAKE_INTELLIGENCE.PUBLIC
+  database.schema: MY_DATABASE.PUBLIC
 
 === Update agent ===
 updated comment (status: ok)
@@ -48,4 +48,4 @@ I'll help with that. Let me load the analyst tool to query the stock data.The lo
   deleted bg thread 8834748044450
 
 === Delete agent ===
-deleted SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_EXAMPLE_AGENT_67762 (status: SDK_EXAMPLE_AGENT_67762 successfully dropped.)
+deleted MY_DATABASE.PUBLIC.SDK_EXAMPLE_AGENT_67762 (status: SDK_EXAMPLE_AGENT_67762 successfully dropped.)

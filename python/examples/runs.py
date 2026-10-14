@@ -21,7 +21,6 @@ from cortex_agent_sdk import CortexAgentAPIError
 from cortex_agent_sdk.api import CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
-    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
@@ -29,11 +28,11 @@ client = CortexAgentClient(
 # --- Setup: create a data agent so the cancel section (which needs a
 #     long-running streaming run) reliably hits v2 and emits text deltas. ---
 data_agent = {
-    "database": os.getenv("SNOWFLAKE_DATABASE", "SNOWFLAKE_INTELLIGENCE"),
+    "database": os.environ["SNOWFLAKE_DATABASE"],
     "schema": os.getenv("SNOWFLAKE_SCHEMA", "PUBLIC"),
     "name": f"SDK_RUNS_EXAMPLE_{os.getpid()}",
 }
-semantic_view = os.getenv("SNOWFLAKE_SEMANTIC_VIEW", "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA")
+semantic_view = os.environ["SNOWFLAKE_SEMANTIC_VIEW"]
 warehouse = os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
 
 client.agent.create(

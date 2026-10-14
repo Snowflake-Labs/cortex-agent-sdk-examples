@@ -17,11 +17,9 @@ from cortex_agent_sdk import (
 )
 from cortex_agent_sdk.api import CortexAgentClient
 
-base_url = f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None
 account = os.getenv("SNOWFLAKE_ACCOUNT")
 
 client = CortexAgentClient(
-    base_url=base_url,
     account=account,
     auth=os.environ["SNOWFLAKE_PAT"],
     max_retries=2,
@@ -63,7 +61,7 @@ def mint_token() -> str:
     return os.environ["SNOWFLAKE_PAT"]
 
 
-rotating_client = CortexAgentClient(base_url=base_url, account=account, auth=mint_token)
+rotating_client = CortexAgentClient(account=account, auth=mint_token)
 rotating_client.threads.list(page_size=1)
 print("  Listed threads with callable auth")
 

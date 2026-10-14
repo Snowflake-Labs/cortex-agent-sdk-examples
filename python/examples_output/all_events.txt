@@ -1,7 +1,7 @@
-Created agent SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_6589 (Agent SDK_ALL_EVENTS_EXAMPLE_6589 successfully created.)
+Created agent MY_DATABASE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_6589 (Agent SDK_ALL_EVENTS_EXAMPLE_6589 successfully created.)
 
 === All StreamEvent callbacks (data agent / spec events) ===
-  agent: SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_6589
+  agent: MY_DATABASE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_6589
 
   [status] planning: Planning the next steps
 I'll load the analyst tool to query stock data.

@@ -10,7 +10,7 @@
   text: "Blue."
 
 === Data agent (non-streaming) ===
-  created SNOWFLAKE_INTELLIGENCE.PUBLIC.SDK_NONSTREAMING_EXAMPLE_85321 (Agent SDK_NONSTREAMING_EXAMPLE_85321 successfully created.)
+  created MY_DATABASE.PUBLIC.SDK_NONSTREAMING_EXAMPLE_85321 (Agent SDK_NONSTREAMING_EXAMPLE_85321 successfully created.)
   text: "I'll help with that. Let me load the analyst tool first.Here are the top 3 stocks by highest closing price:
 
 

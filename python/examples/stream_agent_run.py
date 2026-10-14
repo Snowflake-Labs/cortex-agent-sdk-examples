@@ -18,15 +18,12 @@ import sys
 from cortex_agent_sdk.api import CortexAgentClient, EventType
 
 client = CortexAgentClient(
-    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
 
-semantic_view = os.getenv("SNOWFLAKE_SEMANTIC_VIEW", "SNOWFLAKE_INTELLIGENCE.PUBLIC.STOCKS_DATA")
-search_service = os.getenv(
-    "SNOWFLAKE_SEARCH_SERVICE", "A11NSCHARFE.WIKIPEDIA_SEARCH.WIKIPEDIA_SEARCH_SERVICE"
-)
+semantic_view = os.environ["SNOWFLAKE_SEMANTIC_VIEW"]
+search_service = os.environ["SNOWFLAKE_SEARCH_SERVICE"]
 warehouse = os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
 
 events = client.agent.run(
