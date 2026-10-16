@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline Auditor</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f7fa; color: #1e293b; min-height: 100vh; }
+  .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+  h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
+  h1 span { color: #29B5E8; }
+  .subtitle { color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+  .input-row { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
+  .input-row input { flex: 1; padding: 0.65rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; transition: border-color 0.15s; }
+  .input-row input:focus { border-color: #29B5E8; }
+  button { padding: 0.65rem 1.25rem; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-primary { background: #29B5E8; color: #fff; }
+  .btn-primary:hover:not(:disabled) { opacity: 0.85; }
+  .btn-secondary { background: #e2e8f0; color: #334155; }
+  .btn-secondary:hover:not(:disabled) { background: #cbd5e1; }
+
+  #results { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 1.5rem; min-height: 120px; display: none; margin-bottom: 1rem; line-height: 1.6; }
+  #results.visible { display: block; }
+  #results table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  #results th { background: #29B5E8; color: #fff; text-align: left; padding: 0.5rem 0.75rem; }
+  #results td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e2e8f0; }
+  #results tr:hover td { background: #f0f9ff; }
+  #results h1, #results h2, #results h3 { margin: 1rem 0 0.5rem; }
+  #results h1 { font-size: 1.3rem; }
+  #results h2 { font-size: 1.15rem; }
+  #results h3 { font-size: 1.05rem; }
+  #results p { margin: 0.5rem 0; }
+  #results code { background: #f1f5f9; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.88rem; }
+  #results pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 0.75rem 0; }
+  #results pre code { background: none; padding: 0; color: inherit; }
+  #results ul, #results ol { margin: 0.5rem 0 0.5rem 1.5rem; }
+  #results strong { color: #0f172a; }
+
+  .spinner { display: inline-block; width: 18px; height: 18px; border: 2.5px solid #e2e8f0; border-top-color: #29B5E8; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 0.5rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #status { color: #64748b; font-size: 0.9rem; margin-bottom: 1rem; }
+
+  .followup-row { display: flex; gap: 0.75rem; }
+  .followup-row input { flex: 1; padding: 0.65rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; }
+  .followup-row input:focus { border-color: #29B5E8; }
+  #followup-section { display: none; }
+  #followup-section.visible { display: block; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1><span>Pipeline</span> Auditor</h1>
+  <p class="subtitle">Discover dynamic tables, tasks, streams &amp; pipes — surface health issues instantly.</p>
+
+  <div class="input-row">
+    <input type="text" id="database" placeholder="Database name, e.g. MY_DB" />
+    <button class="btn-primary" id="audit-btn" onclick="runAudit()">Run Audit</button>
+  </div>
+
+  <div id="status"></div>
+  <div id="results"></div>
+
+  <div id="followup-section">
+    <div class="followup-row">
+      <input type="text" id="followup" placeholder="Ask a follow-up question…" onkeydown="if(event.key==='Enter')askFollowup()" />
+      <button class="btn-secondary" onclick="askFollowup()">Ask</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let threadId = null;
+let currentDatabase = "";
+
+function setLoading(on, msg) {
+  const status = document.getElementById("status");
+  const btn = document.getElementById("audit-btn");
+  if (on) {
+    status.innerHTML = '<span class="spinner"></span>' + (msg || "Auditing…");
+    btn.disabled = true;
+  } else {
+    status.textContent = "";
+    btn.disabled = false;
+  }
+}
+
+function renderMarkdown(md) {
+  let html = md;
+  // code blocks
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
+    '<pre><code>' + code.replace(/</g, '&lt;') + '</code></pre>');
+  // tables
+  html = html.replace(/^(\|.+\|)\n(\|[\s:-]+\|)\n((?:\|.+\|\n?)*)/gm, (_, header, sep, body) => {
+    const ths = header.split('|').filter(c => c.trim()).map(c => '<th>' + c.trim() + '</th>').join('');
+    const rows = body.trim().split('\n').map(row => {
+      const tds = row.split('|').filter(c => c.trim()).map(c => '<td>' + c.trim() + '</td>').join('');
+      return '<tr>' + tds + '</tr>';
+    }).join('');
+    return '<table><thead><tr>' + ths + '</tr></thead><tbody>' + rows + '</tbody></table>';
+  });
+  // headings
+  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+  // bold / italic / inline code
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // lists
+  html = html.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+  // paragraphs
+  html = html.replace(/\n{2,}/g, '</p><p>');
+  html = '<p>' + html + '</p>';
+  html = html.replace(/<p>\s*(<h[123]|<table|<pre|<ul)/g, '$1');
+  html = html.replace(/(<\/h[123]>|<\/table>|<\/pre>|<\/ul>)\s*<\/p>/g, '$1');
+  return html;
+}
+
+async function runAudit() {
+  const db = document.getElementById("database").value.trim();
+  if (!db) return;
+  currentDatabase = db;
+  threadId = null;
+
+  const results = document.getElementById("results");
+  results.className = "visible";
+  results.innerHTML = "";
+  document.getElementById("followup-section").className = "";
+  setLoading(true, "Auditing " + db + "…");
+
+  try {
+    const res = await fetch("/audit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ database: db }),
+    });
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split("\n");
+      buf = lines.pop();
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        const msg = JSON.parse(line);
+        if (msg.type === "thread_id") threadId = msg.thread_id;
+        if (msg.type === "text") results.innerHTML = renderMarkdown(msg.text);
+        if (msg.type === "done") {
+          setLoading(false);
+          document.getElementById("followup-section").className = "visible";
+        }
+      }
+    }
+  } catch (e) {
+    results.innerHTML = '<p style="color:#dc2626">Error: ' + e.message + '</p>';
+    setLoading(false);
+  }
+}
+
+async function askFollowup() {
+  const input = document.getElementById("followup");
+  const msg = input.value.trim();
+  if (!msg || !threadId) return;
+  input.value = "";
+
+  const results = document.getElementById("results");
+  setLoading(true, "Thinking…");
+
+  try {
+    const res = await fetch("/audit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ database: currentDatabase, message: msg, thread_id: threadId }),
+    });
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = "";
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split("\n");
+      buf = lines.pop();
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        const msg2 = JSON.parse(line);
+        if (msg2.type === "thread_id") threadId = msg2.thread_id;
+        if (msg2.type === "text") results.innerHTML = renderMarkdown(msg2.text);
+        if (msg2.type === "done") setLoading(false);
+      }
+    }
+  } catch (e) {
+    results.innerHTML += '<p style="color:#dc2626">Error: ' + e.message + '</p>';
+    setLoading(false);
+  }
+}
+</script>
+</body>
+</html>

@@ -34,7 +34,10 @@ resources it uses.
 ├── python/
 │   ├── examples/          # Python examples
 │   └── examples_output/   # Sanitized output captures
-├── use-cases/             # Self-contained mini apps (Next.js, Streamlit, FastAPI)
+├── natural-language-analytics/   # Use case: NL query dashboard
+├── app-builder-agent/            # Use case: AI app builder
+├── pipeline-auditor/             # Use case: pipeline health auditor
+├── automated-data-profiler/      # Use case: table profiling agent
 ├── package.json           # TypeScript dependencies and scripts
 ├── pyproject.toml         # Python dependencies and lint config
 └── tsconfig.json
@@ -145,7 +148,7 @@ python -m compileall -q python/examples
 
 | Example | Description |
 | --- | --- |
-| `conversation` | Multi-agent-type conversation switching (Python only) |
+| `conversation` | Multi-agent-type conversation switching |
 | `conversation-manual` | Manual thread + run management without the Conversation wrapper |
 | `conversation-client-content` | Inject client-side content into the conversation context |
 
@@ -192,8 +195,10 @@ Self-contained mini apps that demonstrate real-world scenarios. Each is availabl
 
 | Use case | Description | Directory |
 | --- | --- | --- |
-| [Natural Language Analytics](use-cases/natural-language-analytics/) | Ask questions about your data in plain English — get answers, SQL, and tables | `use-cases/natural-language-analytics/` |
-| [App Builder Agent](use-cases/app-builder-agent/) | Describe the app you want — an AI coding agent builds it | `use-cases/app-builder-agent/` |
+| [Natural Language Analytics](natural-language-analytics/) | Ask questions about your data in plain English — get answers, SQL, and tables | `natural-language-analytics/` |
+| [App Builder Agent](app-builder-agent/) | Describe the app you want — an AI coding agent builds it | `app-builder-agent/` |
+| [Pipeline Auditor](pipeline-auditor/) | Discover and audit Snowflake data pipeline objects for health issues | `pipeline-auditor/` |
+| [Automated Data Profiler](automated-data-profiler/) | Point it at a table — get nulls, distributions, outliers, and a quality report | `automated-data-profiler/` |
 
 ## Expected output
 
