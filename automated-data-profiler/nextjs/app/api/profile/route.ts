@@ -66,7 +66,7 @@ export async function POST(req: Request): Promise<Response> {
     async start(controller) {
       try {
         const conversation: Conversation = threadId
-          ? await client.conversations.attach({ threadId, agent: agentConfig })
+          ? await client.conversations.attach(threadId)
           : await client.conversations.create({
               thread: { origin_application: "automated-data-profiler" },
               agent: agentConfig,
@@ -81,7 +81,9 @@ export async function POST(req: Request): Promise<Response> {
           ),
         );
 
-        const turn: Turn = await conversation.send(prompt);
+        const turn: Turn = await conversation.send(prompt, {
+          agent: agentConfig,
+        });
 
         for await (const event of turn.events()) {
           const text = extractText(event);

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 from typing import AsyncGenerator
@@ -10,7 +11,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
 
-from cortex_agent_sdk import CortexAgentClient
+from cortex_agent_sdk import Conversation, CortexAgentClient
 
 app = FastAPI()
 
@@ -52,6 +53,11 @@ async def index():
     return FileResponse("static/index.html")
 
 
+def _do_turn(conversation, message):
+    turn = conversation.send(message)
+    return turn.result()
+
+
 async def stream_response(request: ProfileRequest) -> AsyncGenerator[str, None]:
     client = CortexAgentClient(
         account=os.environ["SNOWFLAKE_ACCOUNT"],
@@ -59,10 +65,7 @@ async def stream_response(request: ProfileRequest) -> AsyncGenerator[str, None]:
     )
     try:
         if request.thread_id:
-            conversation = client.conversations.attach(
-                thread_id=request.thread_id,
-                agent=AGENT_CONFIG,
-            )
+            conversation = Conversation(client, request.thread_id, agent=AGENT_CONFIG)
         else:
             conversation = client.conversations.create(
                 origin_application="data-profiler",
@@ -76,8 +79,7 @@ async def stream_response(request: ProfileRequest) -> AsyncGenerator[str, None]:
         else:
             prompt = PROFILE_PROMPT.format(table=request.table)
 
-        turn = conversation.send(prompt)
-        result = turn.result()
+        result = await asyncio.to_thread(_do_turn, conversation, prompt)
 
         yield json.dumps({"type": "text", "text": result.text}) + "\n"
         yield json.dumps({"type": "done"}) + "\n"

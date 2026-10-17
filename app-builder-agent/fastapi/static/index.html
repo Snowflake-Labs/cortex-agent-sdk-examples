@@ -213,13 +213,15 @@ async function sendMessage() {
 
       for (const line of lines) {
         if (!line.trim()) continue;
-        const event = JSON.parse(line);
-        if (event.type === "thread_id") {
-          threadId = event.thread_id;
-        } else if (event.type === "text") {
-          thinkingEl.remove();
-          addMessage("agent", event.text);
-        }
+        try {
+          const event = JSON.parse(line);
+          if (event.type === "thread_id") {
+            threadId = event.thread_id;
+          } else if (event.type === "text") {
+            thinkingEl.remove();
+            addMessage("agent", event.text);
+          }
+        } catch { /* skip malformed line */ }
       }
     }
   } catch (err) {

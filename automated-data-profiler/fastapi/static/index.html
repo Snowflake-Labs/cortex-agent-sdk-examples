@@ -317,17 +317,19 @@ async function doRequest(body, thinkingText) {
 
       for (const line of lines) {
         if (!line.trim()) continue;
-        const event = JSON.parse(line);
-        if (event.type === "thread_id") {
-          threadId = event.thread_id;
-        } else if (event.type === "text") {
-          thinkingEl.remove();
-          const div = document.createElement("div");
-          div.className = "report";
-          div.innerHTML = renderMarkdown(event.text);
-          resultsEl.appendChild(div);
-          resultsEl.scrollTop = resultsEl.scrollHeight;
-        }
+        try {
+          const event = JSON.parse(line);
+          if (event.type === "thread_id") {
+            threadId = event.thread_id;
+          } else if (event.type === "text") {
+            thinkingEl.remove();
+            const div = document.createElement("div");
+            div.className = "report";
+            div.innerHTML = renderMarkdown(event.text);
+            resultsEl.appendChild(div);
+            resultsEl.scrollTop = resultsEl.scrollHeight;
+          }
+        } catch { /* skip malformed line */ }
       }
     }
   } catch (err) {

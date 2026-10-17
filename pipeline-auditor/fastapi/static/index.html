@@ -149,13 +149,15 @@ async function runAudit() {
       buf = lines.pop();
       for (const line of lines) {
         if (!line.trim()) continue;
-        const msg = JSON.parse(line);
-        if (msg.type === "thread_id") threadId = msg.thread_id;
-        if (msg.type === "text") results.innerHTML = renderMarkdown(msg.text);
-        if (msg.type === "done") {
-          setLoading(false);
-          document.getElementById("followup-section").className = "visible";
-        }
+        try {
+          const msg = JSON.parse(line);
+          if (msg.type === "thread_id") threadId = msg.thread_id;
+          if (msg.type === "text") results.innerHTML = renderMarkdown(msg.text);
+          if (msg.type === "done") {
+            setLoading(false);
+            document.getElementById("followup-section").className = "visible";
+          }
+        } catch { /* skip malformed line */ }
       }
     }
   } catch (e) {
@@ -190,10 +192,12 @@ async function askFollowup() {
       buf = lines.pop();
       for (const line of lines) {
         if (!line.trim()) continue;
-        const msg2 = JSON.parse(line);
-        if (msg2.type === "thread_id") threadId = msg2.thread_id;
-        if (msg2.type === "text") results.innerHTML = renderMarkdown(msg2.text);
-        if (msg2.type === "done") setLoading(false);
+        try {
+          const msg2 = JSON.parse(line);
+          if (msg2.type === "thread_id") threadId = msg2.thread_id;
+          if (msg2.type === "text") results.innerHTML = renderMarkdown(msg2.text);
+          if (msg2.type === "done") setLoading(false);
+        } catch { /* skip malformed line */ }
       }
     }
   } catch (e) {

@@ -36,7 +36,7 @@ export async function POST(req: Request): Promise<Response> {
     async start(controller) {
       try {
         const conversation: Conversation = threadId
-          ? await client.conversations.attach({ threadId, agent: agentConfig })
+          ? await client.conversations.attach(threadId)
           : await client.conversations.create({
               thread: { origin_application: "app-builder-agent" },
               agent: agentConfig,
@@ -52,7 +52,9 @@ export async function POST(req: Request): Promise<Response> {
           ),
         );
 
-        const turn: Turn = await conversation.send(message);
+        const turn: Turn = await conversation.send(message, {
+          agent: agentConfig,
+        });
 
         // Stream events as they arrive
         for await (const event of turn.events()) {
