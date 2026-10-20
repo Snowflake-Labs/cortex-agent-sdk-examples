@@ -59,6 +59,14 @@ def _get_conversation() -> Conversation:
                 "spec": {
                     "permission_policy": "always_allow",
                     "models": {"orchestration": "claude-sonnet-4-5"},
+                    # Without this the agent sometimes writes code/reports to sandbox files
+                    # and replies with no text, leaving the user with an empty answer.
+                    "instructions": {
+                        "system": (
+                            "Put your complete answer, including any code or report, directly in "
+                            "your reply. Do not write files unless the user explicitly asks for one."
+                        )
+                    },
                 },
             },
         )

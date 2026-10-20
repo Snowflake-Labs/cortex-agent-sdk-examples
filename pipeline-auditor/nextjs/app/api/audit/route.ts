@@ -11,6 +11,13 @@ const agentConfig = {
   spec: {
     permissionPolicy: "always_allow" as const,
     models: { orchestration: "claude-sonnet-4-5" },
+    // Without this the agent sometimes writes code/reports to sandbox files
+    // and replies with no text, leaving the user with an empty answer.
+    instructions: {
+      system:
+        "Put your complete answer, including any code or report, directly in your reply. " +
+        "Do not write files unless the user explicitly asks for one.",
+    },
   },
 };
 
@@ -97,8 +104,7 @@ export async function POST(req: Request): Promise<Response> {
           }
         }
 
-        // The event replay occasionally carries no text deltas; fall back to the
-        // completed result so the user never gets an empty reply.
+        // Defensive: if nothing streamed, send whatever the completed result holds.
         if (!streamed) {
           const { text } = await turn.result();
           controller.enqueue(
