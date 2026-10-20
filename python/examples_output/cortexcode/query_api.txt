@@ -1,0 +1,21 @@
+=== API sandbox tool execution ===
+sandbox.status=success
+sandbox.message_types=['AssistantMessage', 'InitSystemMessage', 'ResultMessage', 'SystemMessage', 'UserMessage']
+sandbox.tool_calls=['bash']
+sandbox.tool_results=1
+sandbox.turns=1
+sandbox.output_seen=True
+thread.created=True
+=== resume the same thread in a new client ===
+resume.status=success
+resume.message_types=['AssistantMessage', 'InitSystemMessage', 'ResultMessage', 'SystemMessage']
+resume.tool_calls=[]
+resume.tool_results=0
+resume.turns=1
+resume.same_thread=True
+resume.context_recalled=True
+=== public thread resources ===
+threads.list_contains_created=True
+threads.describe_id_matches=True
+threads.message_count=4
+threads.roles=['assistant', 'user']

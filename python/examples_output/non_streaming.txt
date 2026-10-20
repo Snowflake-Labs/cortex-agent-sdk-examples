@@ -1,0 +1,33 @@
+=== Lite agent (non-streaming) ===
+  role: assistant
+  content items: 2
+  text: "
+4"
+  run_id: None
+
+=== Non-streaming + request_with_response ===
+  x-snowflake-request-id: 1cc37ea3-ef14-45d0-a14d-5d0d274ac5fe
+  text: "Blue."
+
+=== Data agent (non-streaming) ===
+  created MY_DATABASE.PUBLIC.SDK_NONSTREAMING_EXAMPLE_85321 (Agent SDK_NONSTREAMING_EXAMPLE_85321 successfully created.)
+  text: "I'll help with that. Let me load the analyst tool first.Here are the top 3 stocks by highest closing price:
+
+
+
+- **TSLA** leads at $409.97, followed by **GS** at $401.44 and **FB** at $382.18."
+  content items: 14
+  tool_uses: 3
+  tool_results: 3
+  tables: 1
+
+=== Background run (stream=False, background=True -> BackgroundRun) ===
+  kickoff: status=in_progress run_id=8834748022934-8834750610822
+  view.role:           assistant
+  view.text:           TSLA's most recent close in the data was **$250.22** on 2023-09-29.
+  view.content items:  7
+  view.metadata run_id: 8834748022934-8834750610822
+  view.events:         46
+  deleted thread 8834748022934
+
+  deleted agent SDK_NONSTREAMING_EXAMPLE_85321

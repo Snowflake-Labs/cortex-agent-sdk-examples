@@ -1,0 +1,14 @@
+=== threading.Event (cancel after 2s) ===
+
+[Cancelled: SSE stream cancelled by caller.]
+
+
+=== AgentRunStream.abort() (abort after 50 chars) ===
+Databases: The Backbone of the Digital World
+
+In a
+[Stream aborted via .abort()]
+
+
+=== Per-request timeout (0.1s — will likely fail) ===
+[Timeout error: APITimeoutError — POST /api/v2/cortex/agent:run timed out: The read operation timed out]

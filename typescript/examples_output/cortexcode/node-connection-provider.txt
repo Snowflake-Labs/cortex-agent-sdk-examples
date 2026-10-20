@@ -1,0 +1,32 @@
+=== 1. What the Node provider resolves ===
+  restUrl protocol:     https:
+  restUrl is a Snowflake host: true
+  authTokenType:        SNOWFLAKE_TOKEN
+  token present:        true
+  user reported:        true
+  refresh() available:  true
+  close() available:    true
+  released the inspected credential
+
+=== 2. A live API-mode turn using that provider ===
+  reply: PROVIDER_OK
+
+=== 3. A custom provider wrapping the Node one ===
+  reply: WRAPPED_OK
+  provider resolve() calls: 1
+  refresh reasons seen:     []
+
+=== 4. The explicit restUrl + tokenProvider form ===
+  reply: EXPLICIT_OK
+
+=== 5. Credential-shape rules the SDK enforces ===
+  restUrl without tokenProvider:
+    API mode api.restUrl requires api.tokenProvider so the SDK can refresh expired Snowflake session tokens
+  tokenProvider without restUrl:
+    API mode api.tokenProvider requires api.restUrl
+  a bare api.token:
+    API mode does not support api.token; pass api.tokenProvider so the SDK can refresh expired Snowflake session tokens
+  OAUTH with no credential source:
+    API mode api.authTokenType sessionless token types require a directly supplied credential via api.tokenProvider. Tokens obtained through a Snowflake connection profile are session tokens and must use authTokenType: "SNOWFLAKE_TOKEN".
+  unknown authTokenType:
+    API mode api.authTokenType must be one of: KEYPAIR_JWT, OAUTH, SNOWFLAKE_TOKEN

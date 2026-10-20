@@ -1,0 +1,31 @@
+Created data agent SDK_RUNS_EXAMPLE_85421
+Created thread 8834748022938
+Kicked off background run 8834748022938-8834750610834 (status: in_progress)
+
+=== 0. BackgroundRun.wait() -> AgentResponseView ===
+  view.role:            assistant
+  view.text:            Snowflake is a cloud-based data platform that provides scalable data storage, processing, and analytics as a fully managed service, enabling organizations to handle data warehousing, data lakes, data engineering, and AI/ML workloads across multiple cloud providers.
+  view.content items:   3
+  view.texts:           1
+  view.tool_uses:       0
+  view.tool_results:    0
+  view.metadata run_id: 8834748022938-8834750610834
+  view.events:          28
+
+=== 1. runs.stream (raw iterator) ===
+  drained 28 events, kinds=[metadata, response, response.status, response.suggested_queries, response.text, response.text.delta, response.thinking, response.thinking.delta], highest seq=27
+
+=== 2. runs.resume (AgentRunStream wrapper) ===
+  text: Snowflake is a cloud-based data platform that provides scalable data storage, processing, and analytics as a fully managed service, enabling organizations to handle data warehousing, data lakes, data engineering, and AI/ML workloads across multiple cloud providers.
+  [end] fired
+  final text length: 265 chars
+
+=== 3. runs.stream with starting_after ===
+  starting_after=13: got 14 events (vs 28 from the start)
+
+=== 4. runs.cancel (background run) ===
+  kicked off background run: status=in_progress run_id=8834748022938-8834750612114
+  cancel returned: assistant_message_id=8834750610838
+  post-cancel replay: 0 chars streamed
+
+Deleted thread 8834748022938 + agent SDK_RUNS_EXAMPLE_85421

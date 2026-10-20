@@ -1,0 +1,25 @@
+=== 1. Create a session ===
+  cwd: /var/folders/cp/95g1bvxd4m32vkhl2nwxd9fm0000gn/T/cortexcode-session-QwDzW7
+  CLI process live: true
+  initialize keys: [commands]
+  slash commands advertised: 0
+
+=== 2. Turn 1 ===
+  reply: PERIWINKLE
+  result subtype: success
+
+=== 3. The system/init event ===
+  model:          auto
+  permissionMode: default
+  apiKeySource:   snowflake
+  cwd matches:    true
+  tools exposed:  54
+
+=== 4. Turn 2 answers from turn 1's context ===
+  reply: PERIWINKLE
+
+=== 5. setModel() applies to subsequent turns ===
+  reply: MODEL_SWITCHED
+
+=== 6. Close ===
+  session closed

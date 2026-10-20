@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "noEmit": true
+  },
+  "include": ["typescript/examples/**/*.ts", "typescript/examples/**/*.d.ts"],
+  "exclude": ["typescript/examples/cortexcode-next-app/**"]
+}
+

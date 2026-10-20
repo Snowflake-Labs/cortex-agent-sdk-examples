@@ -1,0 +1,17 @@
+Created thread: 8834748022762
+
+Turn 1:
+
+
+Snowflake Arctic is an enterprise-focused large language model (LLM) developed by Snowflake's AI research team, released in April 2024. Here are its key characteristics:
+
+**Architecture**
+- Arctic u...
+
+Captured assistant message ID: 8834750609706
+
+Turn 2:
+Snowflake Arctic's key advantage over Llama 3 is its far greater inference and training efficiency—thanks to its Dense-MoE architecture, it activates only 17 billion of its 480 billion parameters per token, delivering strong enterprise-task performance (like SQL and coding) at a fraction of the compute cost.
+
+Thread now has 4 messages
+Thread deleted

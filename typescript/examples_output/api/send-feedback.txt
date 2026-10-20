@@ -1,0 +1,24 @@
+Created data agent SDK_FEEDBACK_EXAMPLE_68259
+I can help you explore and analyze your data. Here's what I can do for you:
+
+**Data Analysis & Insights**
+- Answer questions about your business metrics by querying your connected data
+- Perform trend analysis, comparisons, rankings, and distributions
+- Dig into SaaS metrics, revenue, customer behavior, and more
+
+**Visualizations**
+- Turn results into charts (time series, comparisons, breakdowns) to make patterns clear
+
+**Skills available to me**
+- **Skill Development** — create, update, review, or delete custom skills that capture reusable workflows and domain knowledge.
+
+To give you concrete answers, I'll query your connected data source. A few ways to get started:
+- Ask a direct question, e.g., *"What was revenue last quarter?"* or *"Show me the top 10 customers by spend."*
+- Ask about a trend, e.g., *"How have monthly signups changed over the past year?"*
+- Ask for a comparison, e.g., *"Compare this year's sales to last year by region."*
+
+What would you like to dig into? If you're not sure what's available, I can also explore the data and suggest some interesting angles.
+
+request_id: 3da5c6f9-a388-4e30-a57a-2df17a79a275
+feedback recorded for request 3da5c6f9-a388-4e30-a57a-2df17a79a275 (status: ok)
+Deleted agent SDK_FEEDBACK_EXAMPLE_68259

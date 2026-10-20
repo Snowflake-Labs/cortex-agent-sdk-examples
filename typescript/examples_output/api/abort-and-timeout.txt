@@ -1,0 +1,12 @@
+=== AbortController (abort after 2s) ===
+#
+[Aborted: AbortError]
+
+
+=== AgentRunStream.abort() (abort after 50 chars) ===
+# Databases: The Backbone of the Digital World
+
+A 
+
+=== Per-request timeout (100ms — will likely fail) ===
+[Timeout error: AbortError — This operation was aborted]

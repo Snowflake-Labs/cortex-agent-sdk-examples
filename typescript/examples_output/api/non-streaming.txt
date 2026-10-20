@@ -1,0 +1,76 @@
+=== Lite agent (non-streaming) ===
+  role: assistant
+  content items: 1
+  text: "4"
+  run_id: undefined
+
+=== Non-streaming + requestWithResponse ===
+  x-snowflake-request-id: e1d7fe0c-4a24-4fe1-8a8c-1b1fa6cc8c63
+  text: "Blue."
+
+=== Data agent (non-streaming) ===
+  created MY_DATABASE.PUBLIC.SDK_NONSTREAMING_EXAMPLE_68065 (Agent SDK_NONSTREAMING_EXAMPLE_68065 successfully created.)
+  role: assistant
+  content items: 12
+  metadata.run_id: -
+  responseBody.role: assistant   (escape hatch)
+  text: "Here are the top 3 stocks by closing price:
+
+
+
+TSLA leads at $409.97, followed by GS at $401.44 and FB at $382.18.
+
+"
+  texts:               2
+    [text] "Here are the top 3 stocks by closing price:
+
+"
+    [text] "
+
+TSLA leads at $409.97, followed by GS at $401.44 and FB at $382.18.
+
+"
+  thinkings:           1
+    [thinking] Need the analyst tool for stock questions. Let me load it via tool search.Search
+  toolUses:            3
+    [tool_use] analyst input={"pruning_question":"What are the top 3 stocks by closing price?"}
+    [tool_use] system_execute_sql input={"semantic_model":"analyst","sql":"SELECT symbol, MAX(close) AS max_close\nFROM __sample_equity_view\nGROUP BY symbol\nORDER BY max_close DESC NULLS LAST\nLIMIT 3"}
+    [tool_use] data_to_chart input={"chart":"{\"$schema\":\"https://vega.github.io/schema/vega-lite/v5.json\",\"title\":\"Top 3 Stocks by Closing Price\",\"mark\":\"bar\",\"encoding\":{\"x\":{\"field\":\"SYMBOL\",\"type\":\"nominal\",\"sort\":\"-y\",\"title\":\"Symbol\"},\"y\":{\"field\":\"MAX_CLOSE\",\"type\":\"quantitative\",\"title\":\"Closing Price\"}}}","question":"THIS FIELD WILL BE DEPRECATED SOON. Please stop using it and use the 'chart' field instead.","tool_result_id":"toolu_bdrk_01HPQ4q8WV6DFp91XYk9hznD"}
+  toolResults:         3
+    [tool_result] analyst (1 items)
+    [tool_result] system_execute_sql (1 items)
+    [tool_result] data_to_chart (1 items)
+  toolResultsAggregated: 0
+  tables:              1
+  charts:              1
+  assets:              0
+  suggestedQueries:    1
+    [suggested] Which stocks have the highest trading volume?
+    [suggested] What is the closing price trend for TSLA over time?
+    [suggested] How does the average closing price compare across different exchanges?
+  images:              0
+  documents:           0
+  artifacts:           0
+  permissionDecisions: 0
+  actualUserMessages:  0
+  findToolUse():                 analyst
+  findToolUse("analyst"):        toolu_bdrk_012F5WAJ6cAVoHZZ1ACh2o5z
+  findToolResult():              analyst
+  findToolResult("...sql"):      success
+  getToolUsesByName("...sql"):   1 match(es)
+  deleted SDK_NONSTREAMING_EXAMPLE_68065 (SDK_NONSTREAMING_EXAMPLE_68065 successfully dropped.)
+
+=== Background run (AsyncRun) ===
+  created thread: 8834748044454
+  status: in_progress
+  run_id: 8834748044454-8834750865478
+  view.role:            assistant
+  view.text:            Snowflake is a cloud-based data platform that lets organizations store, process, and analyze large volumes of data across multiple cloud providers using a fully managed, scalable architecture.
+  view.content.length:  2
+  view.texts.length:    1
+  view.toolUses.length: 0
+  view.toolResults.len: 0
+  view.metadata.run_id: 8834748044454-8834750865478
+  view.events?.length:  20
+  runs.stream replay: 20 events, kinds=[metadata, response, response.status, response.suggested_queries, response.text, response.text.delta]
+  deleted thread 8834748044454 (ok)

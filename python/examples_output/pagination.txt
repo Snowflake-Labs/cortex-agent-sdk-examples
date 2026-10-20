@@ -1,0 +1,28 @@
+=== Auto-pagination (page_size=3) ===
+  thread_id=8834748022754 name="(untitled)"
+  thread_id=8834747996186 name="(untitled)"
+  thread_id=8834747996174 name="(untitled)"
+  thread_id=8834747994954 name="(untitled)"
+  thread_id=8834747994938 name="(untitled)"
+  thread_id=8834747991914 name="Data warehouse explainer"
+  thread_id=8834747987910 name="(untitled)"
+  thread_id=8834747987906 name="(untitled)"
+  thread_id=8834747987242 name="(untitled)"
+  thread_id=8834747987238 name="(untitled)"
+  (iterated 10 threads)
+
+=== Manual pagination ===
+  Page 1: 2 threads
+    thread_id=8834748022754
+    thread_id=8834747996186
+  Page 2: 2 threads
+    thread_id=8834747996174
+    thread_id=8834747994954
+  Page 3: 2 threads
+    thread_id=8834747994938
+    thread_id=8834747991914
+  (stopping at page 3 for demo)
+
+=== First page only (.data) ===
+  Got 5 threads on first page
+  has_more: True

@@ -1,0 +1,4 @@
+{"level":"INFO","message":"[5:15:42.587 PM]: Connection configuration file is read from path: /Users/example_user/.snowflake/connections.toml. Checksum: <checksum>"}
+conversation=8834748143586
+run=8834748143586-8834751670986
+response="authentication succeeded"

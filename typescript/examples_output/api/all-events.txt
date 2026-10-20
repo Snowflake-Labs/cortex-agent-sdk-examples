@@ -1,0 +1,76 @@
+Created agent MY_DATABASE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_66346 (Agent SDK_ALL_EVENTS_EXAMPLE_66346 successfully created.)
+
+=== All StreamEvent callbacks (data agent / spec events) ===
+  agent: MY_DATABASE.PUBLIC.SDK_ALL_EVENTS_EXAMPLE_66346
+
+  [status] planning: Planning the next steps
+  [thinking] Need the analyst tool. Let me search for it.Searching for relevant tools...
+Found 2 relevant tools
+
+  [thinking complete] (99 chars)
+  [status] extracting_tool_calls: Choosing data sources to use
+  [status] executing_tools: Getting additional context
+  [toolUse] name=analyst type=system_agentic_semantic_context id=toolu_bdrk_01JJjg46fbm8gDrLAcjRe6qq
+  [toolResultStatus] executing_tool: Running analyst (tool=system_agentic_semantic_context)
+  [toolResult] status=success name=analyst
+  [status] reasoning_agent_stop: Reviewing the results
+  [status] reevaluating_plan: Rethinking the plan
+  [status] planning: Planning the next steps
+  [status] extracting_tool_calls: Choosing data sources to use
+  [status] executing_tools: Getting additional context
+  [toolUse] name=system_execute_sql type=system_execute_sql id=toolu_bdrk_011HtBt3Zzrz2cDbKj9VnZPD
+  [toolResultStatus] executing_tool: Running system_execute_sql (tool=system_execute_sql)
+  [toolResultStatus] Validating SQL: Postprocessing and validating SQL (tool=system_execute_sql)
+  [toolResultStatus] Executing SQL: Executing SQL (tool=system_execute_sql)
+  [toolResultStatus] Executing SQL: Query ID: 01c6f277-0020-1fd0-0000-08092ece9a7e (tool=system_execute_sql)
+  [toolResultStatus] RUNNING: Executing SQL (tool=system_execute_sql)
+  [toolResultStatus] SUCCESS: Executing SQL (tool=system_execute_sql)
+  [toolResult] status=success name=system_execute_sql
+  [status] reasoning_agent_stop: Reviewing the results
+  [status] reevaluating_plan: Rethinking the plan
+  [status] planning: Planning the next steps
+  [status] extracting_tool_calls: Choosing data sources to use
+  [status] executing_tools: Getting additional context
+  [toolUse] name=data_to_chart type=data_to_chart id=toolu_bdrk_019PZkKwauSWZPniEMG6M4Am
+  [toolResultStatus] executing_tool: Running data_to_chart (tool=data_to_chart)
+  [toolResult] status=success name=data_to_chart
+  [status] reasoning_agent_stop: Reviewing the results
+  [status] reevaluating_plan: Rethinking the plan
+  [status] planning: Planning the next steps
+The top 5 stocks by (peak) closing price are TSLA ($409.97), GS ($401.44), FB ($382.18), MSFT ($358.73), and UPS ($218.61).
+
+
+  [text complete] (125 chars)
+  [table] tool_use_id=toolu_bdrk_011HtBt3Zzrz2cDbKj9VnZPD query_id=01c6f277-0020-1fd0-0000-08092ece9a7e
+
+
+  [chart] tool_use_id=toolu_bdrk_019PZkKwauSWZPniEMG6M4Am
+  [status] reasoning_agent_stop: Reviewing the results
+  [status] proceeding_to_answer: Forming the answer
+  [suggestedQueries] count=3
+  [end] stream completed (status=completed)
+
+  --- Accumulated state ---
+  currentText:     127 chars
+  currentThinking: 99 chars
+  currentAnalyst:  0 chars
+
+
+=== Raw event log (for-await, narrowed) ===
+  Streamed chars: text=92 thinking=86 analyst=0 sqlExplanation=0 debug=0
+
+  Event type counts:
+    response.status: 13
+    response.text.delta: 9
+    response.thinking.delta: 8
+    response.tool_result.status: 6
+    response.tool_use: 2
+    response.tool_result: 2
+    response.thinking: 1
+    response.server_tool_blocks: 1
+    response.text: 1
+    response.table: 1
+    response.suggested_queries: 1
+    response: 1
+
+Deleted agent SDK_ALL_EVENTS_EXAMPLE_66346 (SDK_ALL_EVENTS_EXAMPLE_66346 successfully dropped.)

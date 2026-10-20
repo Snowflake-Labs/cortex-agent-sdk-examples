@@ -1,0 +1,17 @@
+=== 1. A flat schema ===
+  schema: {"type":"object","properties":{"answer":{"type":"number"},"explanation":{"type":"string"}},"required":["answer","explanation"],"additionalProperties":false}
+  subtype:               success
+  structured_output set: true
+  typeof answer:         number
+  answer:                51
+  explanation:           17 multiplied by 3 equals 51.
+
+=== 2. A nested schema, filled from a real file ===
+  schema: {"type":"object","properties":{"package":{"type":"object","properties":{"name":{"type":"string"},"version":{"type":"string"}},"required":["name","version"]},"top_level_keys":{"type":"array","items":{"type":"string"}}},"required":["package","top_level_keys"],"additionalProperties":false}
+  subtype:            success
+  package.name:       halcyon-tools
+  package.version:    2.3.0
+  top_level_keys:     ["name","version","license"]
+  top_level_keys is an array: true
+  raw result parses as JSON: false
+  raw result first line:     Structured output provided successfully
