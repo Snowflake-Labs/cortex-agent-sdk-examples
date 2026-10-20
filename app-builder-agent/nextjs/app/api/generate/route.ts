@@ -38,7 +38,7 @@ export async function POST(req: Request): Promise<Response> {
         const conversation: Conversation = threadId
           ? await client.conversations.attach(threadId)
           : await client.conversations.create({
-              thread: { origin_application: "app-builder-agent" },
+              thread: { origin_application: "app-builder" },
               agent: agentConfig,
             });
 
@@ -59,14 +59,33 @@ export async function POST(req: Request): Promise<Response> {
         // Stream events as they arrive
         // Only forward answer deltas; thinking deltas and the final aggregated
         // response.text event also carry a `text` field and would duplicate output.
+        // A new content_index means a new text block; separate blocks so the
+        // agent's narration between tool calls doesn't run together.
+        let lastIndex: number | undefined;
+        let streamed = false;
         for await (const event of turn.events()) {
           if (event.event === "response.text.delta" && event.text) {
+            const sep =
+              streamed && event.content_index !== lastIndex
+                ? "\n\n"
+                : "";
+            lastIndex = event.content_index;
+            streamed = true;
             controller.enqueue(
               encoder.encode(
-                JSON.stringify({ type: "text", text: event.text }) + "\n",
+                JSON.stringify({ type: "text", text: sep + event.text }) + "\n",
               ),
             );
           }
+        }
+
+        // The event replay occasionally carries no text deltas; fall back to the
+        // completed result so the user never gets an empty reply.
+        if (!streamed) {
+          const { text } = await turn.result();
+          controller.enqueue(
+            encoder.encode(JSON.stringify({ type: "text", text }) + "\n"),
+          );
         }
 
         controller.enqueue(

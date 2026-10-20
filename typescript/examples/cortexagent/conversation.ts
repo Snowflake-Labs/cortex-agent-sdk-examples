@@ -21,7 +21,7 @@ if (!account || !auth) {
 const client: CortexAgentClient = new CortexAgentClient({ account, auth });
 
 const conversation: Conversation = await client.conversations.create({
-  thread: { origin_application: "typescript-sdk-example" },
+  thread: { origin_application: "sdk-examples" },
   agent: {
     type: "inline",
     spec: { models: { orchestration: "claude-sonnet-4-5" } },

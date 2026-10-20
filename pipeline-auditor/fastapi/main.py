@@ -39,7 +39,8 @@ AUDIT_PROMPT_TEMPLATE = """Audit the Snowflake database `{database}` for pipelin
    Object Type | Schema | Name | Status | Issue (if any)
 4. After the table, summarize the top issues and recommend fixes.
 
-Use SHOW commands and INFORMATION_SCHEMA / ACCOUNT_USAGE views as needed."""
+Use SHOW commands and INFORMATION_SCHEMA / ACCOUNT_USAGE views as needed.
+Return the complete report directly in your reply; do not write it to a file."""
 
 
 @app.get("/")
@@ -55,7 +56,9 @@ def _open_conversation(client: CortexAgentClient, thread_id: int | str | None) -
 
 
 def _run_turn(conversation: Conversation, message: str) -> str:
-    return conversation.send(message, agent=AGENT_CONFIG).result().text
+    answer = conversation.send(message, agent=AGENT_CONFIG).result()
+    # `.text` glues the agent's separate text blocks together; keep them apart.
+    return "\n\n".join(item.get("text") or "" for item in answer.texts)
 
 
 async def stream_response(request: AuditRequest) -> AsyncGenerator[str, None]:

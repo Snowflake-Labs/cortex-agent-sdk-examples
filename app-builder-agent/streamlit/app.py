@@ -54,7 +54,8 @@ if prompt := st.chat_input("Describe the app you want to build\u2026"):
 
             turn: Turn = st.session_state.conversation.send(prompt)
             response: AgentResponse = turn.result()
-            reply = response.text
+            # `.text` glues the agent's separate text blocks together; keep them apart.
+            reply = "\n\n".join(item.get("text") or "" for item in response.texts)
 
         st.markdown(reply)
 

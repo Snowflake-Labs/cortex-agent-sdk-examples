@@ -33,6 +33,8 @@ Format the report as:
 - **Quality Summary**: a markdown table with columns: Column | Null Rate | Cardinality | Issues
 - **Numeric Stats**: a markdown table with: Column | Min | Max | Mean | StdDev | Outliers
 - **Freshness**: when the table was last altered
+
+Return the complete report directly in your reply; do not write it to a file.
 """
 
 
@@ -48,7 +50,7 @@ def get_client() -> CortexAgentClient:
 def get_conversation(client: CortexAgentClient) -> Conversation:
     if st.session_state.conversation is None:
         st.session_state.conversation = client.conversations.create(
-            origin_application="automated-data-profiler",
+            origin_application="data-profiler",
             agent={
                 "type": "coding",
                 "spec": {
@@ -65,7 +67,8 @@ def send_message(text: str) -> str:
     conversation = get_conversation(client)
     turn: Turn = conversation.send(text)
     response: AgentResponse = turn.result()
-    return response.text
+    # `.text` glues the agent's separate text blocks together; keep them apart.
+    return "\n\n".join(item.get("text") or "" for item in response.texts)
 
 
 # -- Render chat history -------------------------------------------------------

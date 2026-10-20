@@ -75,7 +75,8 @@ def _send_and_display(message: str) -> None:
             conversation = _get_conversation()
             turn: Turn = conversation.send(message)
             response: AgentResponse = turn.result()
-            reply = response.text
+            # `.text` glues the agent's separate text blocks together; keep them apart.
+            reply = "\n\n".join(item.get("text") or "" for item in response.texts)
         st.markdown(reply)
 
     st.session_state.messages.append({"role": "assistant", "content": reply})
@@ -92,7 +93,8 @@ if run_audit:
         f"4. Run SHOW PIPES IN DATABASE {db_name} — check status and pending file count\n"
         "\n"
         "For each object found, report: name, type, status (healthy/warning/critical), and a one-line finding.\n"
-        "Format the final report as a markdown table with columns: Object | Type | Status | Finding"
+        "Format the final report as a markdown table with columns: Object | Type | Status | Finding\n"
+        "Return the complete report directly in your reply; do not write it to a file."
     )
     _send_and_display(audit_prompt)
 

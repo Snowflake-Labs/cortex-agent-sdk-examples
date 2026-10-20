@@ -44,7 +44,7 @@ Cover these sections:
 7. **Outlier Detection** — flag numeric values beyond 3 standard deviations.
 8. **Data Quality Summary** — overall quality score and key findings.
 
-Use SQL queries against the table. Format the full report in clean markdown with tables and code blocks where appropriate.\
+Use SQL queries against the table. Format the full report in clean markdown with tables and code blocks where appropriate. Return the complete report directly in your reply; do not write it to a file.\
 """
 
 
@@ -61,7 +61,9 @@ def _open_conversation(client: CortexAgentClient, thread_id: int | str | None) -
 
 
 def _run_turn(conversation: Conversation, message: str) -> str:
-    return conversation.send(message, agent=AGENT_CONFIG).result().text
+    answer = conversation.send(message, agent=AGENT_CONFIG).result()
+    # `.text` glues the agent's separate text blocks together; keep them apart.
+    return "\n\n".join(item.get("text") or "" for item in answer.texts)
 
 
 async def stream_response(request: ProfileRequest) -> AsyncGenerator[str, None]:
