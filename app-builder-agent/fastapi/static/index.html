@@ -151,12 +151,16 @@ inputEl.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !sendBtn.disabled) sendMessage();
 });
 
+function escapeHtml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 function renderMarkdown(text) {
+  // Escape first: agent output is untrusted and must not inject HTML.
+  text = escapeHtml(text);
   // Convert fenced code blocks
-  text = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-    const escaped = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    return `<pre><code>${escaped}</code></pre>`;
-  });
+  text = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => `<pre><code>${code}</code></pre>`);
   // Convert inline code
   text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
   return text;

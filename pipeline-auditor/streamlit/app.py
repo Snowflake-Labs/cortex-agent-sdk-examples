@@ -5,7 +5,6 @@ from __future__ import annotations
 import os
 
 import streamlit as st
-
 from cortex_agent_sdk import AgentResponse, Conversation, CortexAgentClient, Turn
 
 st.set_page_config(page_title="Pipeline Auditor", page_icon="🔍")

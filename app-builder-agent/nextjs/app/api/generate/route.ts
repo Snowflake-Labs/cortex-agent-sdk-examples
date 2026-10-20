@@ -57,11 +57,14 @@ export async function POST(req: Request): Promise<Response> {
         });
 
         // Stream events as they arrive
+        // Only forward answer deltas; thinking deltas and the final aggregated
+        // response.text event also carry a `text` field and would duplicate output.
         for await (const event of turn.events()) {
-          const text = extractText(event);
-          if (text) {
+          if (event.event === "response.text.delta" && event.text) {
             controller.enqueue(
-              encoder.encode(JSON.stringify({ type: "text", text }) + "\n"),
+              encoder.encode(
+                JSON.stringify({ type: "text", text: event.text }) + "\n",
+              ),
             );
           }
         }
@@ -90,51 +93,4 @@ export async function POST(req: Request): Promise<Response> {
       "Cache-Control": "no-cache",
     },
   });
-}
-
-/**
- * Extract text content from a streaming event. The SDK's Turn.events()
- * yields objects whose shape depends on the event type — text deltas
- * carry the displayable content we want to forward to the client.
- */
-function extractText(event: unknown): string {
-  if (typeof event !== "object" || event === null) return "";
-  const e = event as Record<string, unknown>;
-
-  // Shape 1: { event: "text", data: { delta: { value: "..." } } }
-  if (e.event === "text" && typeof e.data === "object" && e.data !== null) {
-    const data = e.data as Record<string, unknown>;
-    if (typeof data.delta === "object" && data.delta !== null) {
-      const delta = data.delta as Record<string, unknown>;
-      if (typeof delta.value === "string") return delta.value;
-    }
-    if (typeof data.text === "string") return data.text;
-  }
-
-  // Shape 2: { event: "text", data: "<json string>" }
-  if (e.event === "text" && typeof e.data === "string") {
-    try {
-      const parsed = JSON.parse(e.data) as Record<string, unknown>;
-      if (typeof parsed.delta === "object" && parsed.delta !== null) {
-        const delta = parsed.delta as Record<string, unknown>;
-        if (typeof delta.value === "string") return delta.value;
-      }
-      if (typeof parsed.text === "string") return parsed.text;
-    } catch {
-      return e.data;
-    }
-  }
-
-  // Shape 3: direct text property
-  if (typeof e.text === "string") return e.text;
-
-  // Shape 4: delta at top level
-  if (typeof e.delta === "string") return e.delta;
-  if (typeof e.delta === "object" && e.delta !== null) {
-    const delta = e.delta as Record<string, unknown>;
-    if (typeof delta.value === "string") return delta.value;
-    if (typeof delta.text === "string") return delta.text;
-  }
-
-  return "";
 }

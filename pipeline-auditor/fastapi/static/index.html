@@ -87,13 +87,19 @@ function setLoading(on, msg) {
   }
 }
 
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 function renderMarkdown(md) {
-  let html = md;
+  // Escape first: agent output echoes object names and error text from the account.
+  let html = escapeHtml(md);
   // code blocks
   html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
-    '<pre><code>' + code.replace(/</g, '&lt;') + '</code></pre>');
+    '<pre><code>' + code + '</code></pre>');
   // tables
-  html = html.replace(/^(\|.+\|)\n(\|[\s:-]+\|)\n((?:\|.+\|\n?)*)/gm, (_, header, sep, body) => {
+  html = html.replace(/^(\|.+\|)\n(\|[\s:|-]+\|)\n((?:\|.+\|\n?)*)/gm, (_, header, sep, body) => {
     const ths = header.split('|').filter(c => c.trim()).map(c => '<th>' + c.trim() + '</th>').join('');
     const rows = body.trim().split('\n').map(row => {
       const tds = row.split('|').filter(c => c.trim()).map(c => '<td>' + c.trim() + '</td>').join('');

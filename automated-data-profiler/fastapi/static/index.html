@@ -230,12 +230,16 @@ followupInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !followupBtn.disabled) sendFollowup();
 });
 
+function escapeHtml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 function renderMarkdown(text) {
+  // Escape first: the report echoes values from the profiled table.
+  text = escapeHtml(text);
   // Fenced code blocks
-  text = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-    const escaped = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    return `<pre><code>${escaped}</code></pre>`;
-  });
+  text = text.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => `<pre><code>${code}</code></pre>`);
   // Tables
   text = text.replace(/((?:^\|.+\|$\n?)+)/gm, (block) => {
     const rows = block.trim().split("\n").filter(r => r.trim());
@@ -267,7 +271,7 @@ function renderMarkdown(text) {
   // Inline code (after code blocks)
   text = text.replace(/`([^`]+)`/g, "<code>$1</code>");
   // Blockquotes
-  text = text.replace(/^> (.+)$/gm, "<blockquote>$1</blockquote>");
+  text = text.replace(/^&gt; (.+)$/gm, "<blockquote>$1</blockquote>");
   // Horizontal rules
   text = text.replace(/^---$/gm, "<hr>");
   // Unordered lists

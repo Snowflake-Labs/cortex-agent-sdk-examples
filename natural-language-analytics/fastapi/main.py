@@ -18,11 +18,10 @@ import os
 import queue
 import threading
 
+from cortex_agent_sdk.api import CortexAgentClient, StreamEvent
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
-
-from cortex_agent_sdk.api import CortexAgentClient, StreamEvent
 
 app = FastAPI()
 
@@ -37,6 +36,17 @@ WAREHOUSE = os.getenv("SNOWFLAKE_WAREHOUSE", "COMPUTE_WH")
 
 class QueryRequest(BaseModel):
     question: str
+
+
+def _to_table(result_set) -> dict | None:
+    """Convert a SQL tool ``result_set`` into ``{"columns": [...], "rows": [[...]]}``."""
+    if not isinstance(result_set, dict):
+        return None
+    rows = result_set.get("data") or []
+    row_type = (result_set.get("resultSetMetaData") or {}).get("rowType") or []
+    if not rows or not row_type:
+        return None
+    return {"columns": [col.get("name") for col in row_type], "rows": rows}
 
 
 def _run_stream(question: str, q: queue.Queue):
@@ -81,9 +91,9 @@ def _run_stream(question: str, q: queue.Queue):
                     sql = payload.get("sql")
                     if sql:
                         q.put(json.dumps({"type": "sql", "sql": sql}))
-                    data = payload.get("data") or payload.get("results")
-                    if data:
-                        q.put(json.dumps({"type": "data", "data": data}))
+                    table = _to_table(payload.get("result_set"))
+                    if table:
+                        q.put(json.dumps({"type": "data", "data": table}))
 
         def on_text(delta, _acc):
             q.put(json.dumps({"type": "text", "text": delta}))

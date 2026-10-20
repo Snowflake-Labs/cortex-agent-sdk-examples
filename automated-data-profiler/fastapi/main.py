@@ -5,13 +5,12 @@ from __future__ import annotations
 import asyncio
 import json
 import os
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
 
+from cortex_agent_sdk import Conversation, CortexAgentClient
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
-
-from cortex_agent_sdk import Conversation, CortexAgentClient
 
 app = FastAPI()
 
@@ -19,7 +18,8 @@ app = FastAPI()
 class ProfileRequest(BaseModel):
     table: str
     message: str | None = None
-    thread_id: str | None = None
+    # Thread IDs are integers on the wire; accept either form from the browser.
+    thread_id: int | str | None = None
 
 
 AGENT_CONFIG = {
@@ -53,9 +53,15 @@ async def index():
     return FileResponse("static/index.html")
 
 
-def _do_turn(conversation, message):
-    turn = conversation.send(message)
-    return turn.result()
+def _open_conversation(client: CortexAgentClient, thread_id: int | str | None) -> Conversation:
+    # attach() resumes from the latest assistant message so follow-ups keep context.
+    if thread_id:
+        return client.conversations.attach(thread_id)
+    return client.conversations.create(origin_application="data-profiler")
+
+
+def _run_turn(conversation: Conversation, message: str) -> str:
+    return conversation.send(message, agent=AGENT_CONFIG).result().text
 
 
 async def stream_response(request: ProfileRequest) -> AsyncGenerator[str, None]:
@@ -64,27 +70,17 @@ async def stream_response(request: ProfileRequest) -> AsyncGenerator[str, None]:
         auth=os.environ["SNOWFLAKE_PAT"],
     )
     try:
-        if request.thread_id:
-            conversation = Conversation(client, request.thread_id, agent=AGENT_CONFIG)
-        else:
-            conversation = client.conversations.create(
-                origin_application="data-profiler",
-                agent=AGENT_CONFIG,
-            )
-
+        conversation = await asyncio.to_thread(_open_conversation, client, request.thread_id)
         yield json.dumps({"type": "thread_id", "thread_id": conversation.id}) + "\n"
 
-        if request.message:
-            prompt = request.message
-        else:
-            prompt = PROFILE_PROMPT.format(table=request.table)
-
-        result = await asyncio.to_thread(_do_turn, conversation, prompt)
-
-        yield json.dumps({"type": "text", "text": result.text}) + "\n"
-        yield json.dumps({"type": "done"}) + "\n"
+        prompt = request.message or PROFILE_PROMPT.format(table=request.table)
+        text = await asyncio.to_thread(_run_turn, conversation, prompt)
+        yield json.dumps({"type": "text", "text": text}) + "\n"
+    except Exception as exc:
+        yield json.dumps({"type": "text", "text": f"Error: {exc}"}) + "\n"
     finally:
         client.close()
+    yield json.dumps({"type": "done"}) + "\n"
 
 
 @app.post("/profile")

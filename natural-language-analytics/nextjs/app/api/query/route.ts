@@ -58,14 +58,9 @@ export async function POST(req: Request) {
             if (j.sql) {
               send({ type: "sql", sql: j.sql });
             }
-            if (Array.isArray(j.results)) {
-              const rows = j.results as Record<string, unknown>[];
-              if (rows.length > 0) {
-                send({
-                  type: "table",
-                  data: { columns: Object.keys(rows[0]), rows },
-                });
-              }
+            const table = toTable(j.result_set);
+            if (table) {
+              send({ type: "table", data: table });
             }
           }
         }
@@ -99,4 +94,22 @@ export async function POST(req: Request) {
       "Transfer-Encoding": "chunked",
     },
   });
+}
+
+/** Convert a SQL tool `result_set` into the `{ columns, rows }` shape the page renders. */
+function toTable(
+  resultSet: unknown,
+): { columns: string[]; rows: Record<string, unknown>[] } | null {
+  if (typeof resultSet !== "object" || resultSet === null) return null;
+  const rs = resultSet as {
+    data?: unknown[][];
+    resultSetMetaData?: { rowType?: { name: string }[] };
+  };
+  const data = rs.data ?? [];
+  const columns = (rs.resultSetMetaData?.rowType ?? []).map((c) => c.name);
+  if (data.length === 0 || columns.length === 0) return null;
+  const rows = data.map((row) =>
+    Object.fromEntries(columns.map((col, i) => [col, row[i]])),
+  );
+  return { columns, rows };
 }

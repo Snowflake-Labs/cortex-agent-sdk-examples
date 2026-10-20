@@ -14,7 +14,6 @@ Environment variables (all required unless noted):
 
 from __future__ import annotations
 
-import json
 import os
 
 import streamlit as st
@@ -89,14 +88,20 @@ if question:
 
         def on_tool_result(event: dict) -> None:
             for item in event.get("content") or []:
-                if item.get("type") == "json":
-                    payload = item.get("json") or {}
-                    if "sql" in payload:
-                        results["sql"] = payload["sql"]
-                    if "tabular" in payload:
-                        results["table"] = payload["tabular"]
-                if item.get("type") == "tool_results_table":
-                    results["table"] = item
+                if item.get("type") != "json":
+                    continue
+                payload = item.get("json") or {}
+                if "sql" in payload:
+                    results["sql"] = payload["sql"]
+                # The SQL execution tool returns rows under result_set.data, with
+                # column names in result_set.resultSetMetaData.rowType.
+                result_set = payload.get("result_set") or {}
+                row_type = (result_set.get("resultSetMetaData") or {}).get("rowType") or []
+                if result_set.get("data") and row_type:
+                    results["table"] = {
+                        "columns": [col.get("name") for col in row_type],
+                        "rows": result_set["data"],
+                    }
 
         def on_status(event: dict) -> None:
             msg = event.get("message", "")
@@ -135,7 +140,7 @@ if question:
             rows = tabular_data.get("rows") or []
             if columns and rows:
                 st.dataframe(
-                    [dict(zip(columns, row)) for row in rows],
+                    [dict(zip(columns, row, strict=False)) for row in rows],
                     use_container_width=True,
                 )
             elif "data" in tabular_data:
