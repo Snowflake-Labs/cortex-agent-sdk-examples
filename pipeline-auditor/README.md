@@ -1,3 +1,20 @@
+<!--
+Copyright 2026 Snowflake Inc.
+SPDX-License-Identifier: Apache-2.0
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
 # Pipeline Auditor
 
 Discover and audit your Snowflake data pipeline objects for health issues. This use case demonstrates a coding agent that automatically inspects pipeline objects (dynamic tables, tasks, streams, pipes) in a database, runs health checks, and produces a structured report with severity-rated findings.
