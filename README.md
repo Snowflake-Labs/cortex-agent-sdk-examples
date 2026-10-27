@@ -260,4 +260,4 @@ Keep examples runnable from the repository root. When adding an example:
 
 Copyright (c) Snowflake Inc. All rights reserved.
 
-Licensed under the Apache 2.0 license. See [LICENSE](LICENSE).
+Licensed under the Apache 2.0 license.
