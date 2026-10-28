@@ -8,8 +8,8 @@
     "format:check": "prettier --check \"typescript/examples/**/*.ts\" \"typescript/examples/**/*.tsx\""
   },
   "dependencies": {
-    "@snowflake/cortex-agent-sdk": "^0.0.2",
-    "snowflake-sdk": "3.0.0",
+    "@snowflake/cortex-agent-sdk": "^0.0.3",
+    "snowflake-sdk": "3.4.0",
     "zod": "^4.0.0"
   },
   "devDependencies": {

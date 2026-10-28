@@ -34,7 +34,7 @@ Cortex Code workflows, and direct Agent API operations.
 - A Snowflake account with Cortex Agents enabled.
 - Node.js 22.22 or later for TypeScript examples.
 - Python 3.10 or later for Python examples.
-- Cortex Agent SDK version `0.0.2` or later.
+- Cortex Agent SDK version `0.0.3` or later.
 - For Cortex Code examples, the `cortex` CLI must be installed and authenticated.
 
 Some examples create temporary threads, conversations, agents, runs, or local
@@ -233,7 +233,7 @@ Expected output captures live under `typescript/examples_output/` and `python/ex
 ## Troubleshooting
 
 If an example cannot import `@snowflake/cortex-agent-sdk/api`, verify that your
-installed TypeScript SDK is version `0.0.2` or later.
+installed TypeScript SDK is version `0.0.3` or later.
 
 If an example fails with authentication errors, verify that:
 

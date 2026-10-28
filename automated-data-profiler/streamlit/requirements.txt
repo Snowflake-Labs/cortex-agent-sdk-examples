@@ -13,5 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-streamlit>=1.40
-snowflake-cortex-agent-sdk>=0.0.2
+streamlit>=1.49
+snowflake-cortex-agent-sdk>=0.0.3

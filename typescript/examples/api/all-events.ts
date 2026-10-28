@@ -70,8 +70,7 @@ const agent: DataAgentTarget = {
   schema: process.env.SNOWFLAKE_SCHEMA ?? "PUBLIC",
   name: `SDK_ALL_EVENTS_EXAMPLE_${process.pid}`,
 };
-const semanticView: string =
-  process.env.SNOWFLAKE_SEMANTIC_VIEW!;
+const semanticView: string = process.env.SNOWFLAKE_SEMANTIC_VIEW!;
 const warehouse: string = process.env.SNOWFLAKE_WAREHOUSE ?? "COMPUTE_WH";
 
 const agentSpec: CortexAgentCreateRequest = {

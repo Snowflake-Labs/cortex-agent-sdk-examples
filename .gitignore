@@ -27,3 +27,6 @@ build/
 
 *.tsbuildinfo
 .next/
+
+# Driver logs written by snowflake-sdk during local runs
+snowflake.log

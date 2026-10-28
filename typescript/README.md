@@ -34,7 +34,7 @@ SNOWFLAKE_ACCOUNT=myaccount SNOWFLAKE_PAT='...' \
   npx tsx typescript/examples/api/stream-agent-run.ts
 ```
 
-The TypeScript examples require SDK version `0.0.2` or later.
+The TypeScript examples require SDK version `0.0.3` or later.
 
 ## Folders
 

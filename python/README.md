@@ -36,7 +36,7 @@ SNOWFLAKE_ACCOUNT=myaccount SNOWFLAKE_PAT='...' \
   python python/examples/stream_agent_run.py
 ```
 
-The Python examples require SDK version `0.0.2` or later.
+The Python examples require SDK version `0.0.3` or later.
 
 ## Folders
 

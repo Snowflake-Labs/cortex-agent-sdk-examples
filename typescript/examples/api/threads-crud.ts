@@ -48,10 +48,8 @@ console.log("created thread", threadId);
 //    the persisted assistant turn contains a rich content mix (text, thinking,
 //    tool_use, tool_result, table, suggested_queries) for ThreadMessageView
 //    to introspect below.
-const semanticView: string =
-  process.env.SNOWFLAKE_SEMANTIC_VIEW!;
-const searchService: string =
-  process.env.SNOWFLAKE_SEARCH_SERVICE!;
+const semanticView: string = process.env.SNOWFLAKE_SEMANTIC_VIEW!;
+const searchService: string = process.env.SNOWFLAKE_SEARCH_SERVICE!;
 const warehouse: string = process.env.SNOWFLAKE_WAREHOUSE ?? "COMPUTE_WH";
 
 const stream: AsyncIterable<ServerSentEvent> = client.agent.run({

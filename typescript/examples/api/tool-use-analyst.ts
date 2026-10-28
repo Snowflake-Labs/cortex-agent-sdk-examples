@@ -29,6 +29,7 @@ import {
   CortexAgentClient,
   StreamEvent,
   AgentRunStream,
+  type CortexAgentCreateRequest,
   type DataAgentTarget,
 } from "@snowflake/cortex-agent-sdk/api";
 
@@ -37,8 +38,7 @@ const client: CortexAgentClient = new CortexAgentClient({
   auth: process.env.SNOWFLAKE_PAT!,
 });
 
-const semanticView: string =
-  process.env.SNOWFLAKE_SEMANTIC_VIEW!;
+const semanticView: string = process.env.SNOWFLAKE_SEMANTIC_VIEW!;
 const warehouse: string = process.env.SNOWFLAKE_WAREHOUSE ?? "COMPUTE_WH";
 
 // --- Example 1: Lite agent path with inline tool/tool_resources ---
@@ -115,50 +115,80 @@ console.log("=== Analyst tool — named agent path ===");
 const agent: DataAgentTarget = {
   database: process.env.SNOWFLAKE_DATABASE!,
   schema: process.env.SNOWFLAKE_SCHEMA ?? "PUBLIC",
-  name: process.env.SNOWFLAKE_AGENT ?? "SDK_ANALYST_EXAMPLE",
+  name: process.env.SNOWFLAKE_AGENT ?? `SDK_ANALYST_EXAMPLE_${process.pid}`,
 };
 console.log(`  agent: ${agent.database}.${agent.schema}.${agent.name}\n`);
 
-const stream2: AgentRunStream = client.agent.streamData(agent, {
-  messages: [
-    {
-      role: "user",
-      content: [{ type: "text", text: "What data can you analyze for me?" }],
-    },
+const agentSpec: CortexAgentCreateRequest = {
+  name: agent.name,
+  models: { orchestration: "auto" },
+  instructions: {
+    orchestration: "Use the analyst tool for stock questions.",
+    response: "Be concise.",
+  },
+  tools: [
+    { tool_spec: { type: "cortex_analyst_text_to_sql", name: "analyst" } },
   ],
-});
+  tool_resources: {
+    analyst: {
+      semantic_view: semanticView,
+      execution_environment: { type: "warehouse", warehouse },
+    },
+  } as unknown as Record<string, never>,
+};
+(
+  await client.agent.create(
+    { database: agent.database, schema: agent.schema },
+    agentSpec,
+    { createMode: "orReplace" },
+  )
+).responseBody;
 
-stream2.on(StreamEvent.Status, (ev) => {
-  console.log(`  [status] ${ev.status}: ${ev.message}`);
-});
+try {
+  const stream2: AgentRunStream = client.agent.streamData(agent, {
+    messages: [
+      {
+        role: "user",
+        content: [{ type: "text", text: "What data can you analyze for me?" }],
+      },
+    ],
+  });
 
-stream2.on(StreamEvent.Thinking, (delta: string, accumulated: string) => {
-  if (accumulated.length === delta.length)
-    process.stdout.write("  [thinking] ");
-  process.stdout.write(delta);
-});
+  stream2.on(StreamEvent.Status, (ev) => {
+    console.log(`  [status] ${ev.status}: ${ev.message}`);
+  });
 
-stream2.on(StreamEvent.ThinkingComplete, () => {
-  console.log();
-});
+  stream2.on(StreamEvent.Thinking, (delta: string, accumulated: string) => {
+    if (accumulated.length === delta.length)
+      process.stdout.write("  [thinking] ");
+    process.stdout.write(delta);
+  });
 
-stream2.on(StreamEvent.ToolUse, (ev) => {
-  console.log(
-    `  [toolUse] name=${ev.name} type=${ev.type} id=${ev.tool_use_id}`,
-  );
-});
+  stream2.on(StreamEvent.ThinkingComplete, () => {
+    console.log();
+  });
 
-stream2.on(StreamEvent.ToolResultStatus, (ev) => {
-  console.log(`  [toolResultStatus] ${ev.status}: ${ev.message}`);
-});
+  stream2.on(StreamEvent.ToolUse, (ev) => {
+    console.log(
+      `  [toolUse] name=${ev.name} type=${ev.type} id=${ev.tool_use_id}`,
+    );
+  });
 
-stream2.on(StreamEvent.Text, (delta: string) => {
-  process.stdout.write(delta);
-});
+  stream2.on(StreamEvent.ToolResultStatus, (ev) => {
+    console.log(`  [toolResultStatus] ${ev.status}: ${ev.message}`);
+  });
 
-stream2.on(StreamEvent.End, () => {
-  console.log("\n  [end] stream completed");
-});
+  stream2.on(StreamEvent.Text, (delta: string) => {
+    process.stdout.write(delta);
+  });
 
-await stream2.done();
-console.log("");
+  stream2.on(StreamEvent.End, () => {
+    console.log("\n  [end] stream completed");
+  });
+
+  await stream2.done();
+  console.log("");
+} finally {
+  (await client.agent.delete(agent, { ifExists: true })).responseBody;
+  console.log(`  Deleted agent ${agent.name}`);
+}

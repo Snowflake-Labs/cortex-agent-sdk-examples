@@ -37,7 +37,7 @@ const client: CortexAgentClient = new CortexAgentClient({
 // --- Example 1: Catch specific error types ---
 console.log("=== NotFoundError (describe nonexistent thread) ===");
 try {
-  (await client.threads.describe(999999999)).responseBody;
+  (await client.threads.describe("999999999")).responseBody;
 } catch (err) {
   if (err instanceof NotFoundError) {
     console.log(`  Caught NotFoundError: ${err.message}`);

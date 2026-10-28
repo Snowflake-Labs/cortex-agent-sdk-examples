@@ -34,10 +34,8 @@ const client: CortexAgentClient = new CortexAgentClient({
   auth: process.env.SNOWFLAKE_PAT!,
 });
 
-const semanticView: string =
-  process.env.SNOWFLAKE_SEMANTIC_VIEW!;
-const searchService: string =
-  process.env.SNOWFLAKE_SEARCH_SERVICE!;
+const semanticView: string = process.env.SNOWFLAKE_SEMANTIC_VIEW!;
+const searchService: string = process.env.SNOWFLAKE_SEARCH_SERVICE!;
 const warehouse: string = process.env.SNOWFLAKE_WAREHOUSE ?? "COMPUTE_WH";
 
 const stream: AsyncIterable<ServerSentEvent> = client.agent.run({
