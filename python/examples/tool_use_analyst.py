@@ -108,7 +108,8 @@ print("=== Analyst tool — named agent path ===")
 agent = {
     "database": os.environ["SNOWFLAKE_DATABASE"],
     "schema": os.getenv("SNOWFLAKE_SCHEMA", "PUBLIC"),
-    "name": os.getenv("SNOWFLAKE_AGENT", f"SDK_ANALYST_EXAMPLE_{os.getpid()}"),
+    # A throwaway agent: it is replaced on create and dropped in `finally`.
+    "name": f"SDK_ANALYST_EXAMPLE_{os.getpid()}",
 }
 print(f"  agent: {agent['database']}.{agent['schema']}.{agent['name']}\n")
 
@@ -167,6 +168,7 @@ try:
     )
     stream2.on(StreamEvent.TEXT, lambda delta, _acc: print(delta, end="", flush=True))
     stream2.on(StreamEvent.END, lambda _e: print("\n  [end] stream completed"))
+    stream2.on(StreamEvent.ERROR, lambda err: print(f"  [error] {err}", file=sys.stderr))
     stream2.done()
 finally:
     client.agent.delete(target=agent, if_exists=True)

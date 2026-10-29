@@ -115,7 +115,8 @@ console.log("=== Analyst tool — named agent path ===");
 const agent: DataAgentTarget = {
   database: process.env.SNOWFLAKE_DATABASE!,
   schema: process.env.SNOWFLAKE_SCHEMA ?? "PUBLIC",
-  name: process.env.SNOWFLAKE_AGENT ?? `SDK_ANALYST_EXAMPLE_${process.pid}`,
+  // A throwaway agent: it is replaced on create and dropped in `finally`.
+  name: `SDK_ANALYST_EXAMPLE_${process.pid}`,
 };
 console.log(`  agent: ${agent.database}.${agent.schema}.${agent.name}\n`);
 
@@ -184,6 +185,10 @@ try {
 
   stream2.on(StreamEvent.End, () => {
     console.log("\n  [end] stream completed");
+  });
+
+  stream2.on(StreamEvent.Error, (err: Error) => {
+    console.error(`  [error] ${err.message}`);
   });
 
   await stream2.done();
