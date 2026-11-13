@@ -156,11 +156,11 @@ if question:
             if columns and rows:
                 st.dataframe(
                     [dict(zip(columns, row, strict=False)) for row in rows],
-                    use_container_width=True,
+                    width="stretch",
                 )
             elif "data" in tabular_data:
-                st.dataframe(tabular_data["data"], use_container_width=True)
+                st.dataframe(tabular_data["data"], width="stretch")
             else:
                 st.json(tabular_data)
         else:
-            st.dataframe(tabular_data, use_container_width=True)
+            st.dataframe(tabular_data, width="stretch")

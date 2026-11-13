@@ -18,7 +18,7 @@ name = "cortex-agent-sdk-examples"
 version = "0.0.0"
 requires-python = ">=3.10"
 dependencies = [
-  "snowflake-cortex-agent-sdk>=0.0.2",
+  "snowflake-cortex-agent-sdk>=0.0.3",
   "snowflake-connector-python[secure-local-storage]>=4.7.1,<5",
   "typing-extensions>=4.0",
 ]
@@ -38,5 +38,10 @@ ignore = ["E501"]
 
 [build-system]
 requires = ["hatchling"]
-build-backend = "hatchling.backends"
+build-backend = "hatchling.build"
+
+# The examples are standalone scripts, not an importable package. Installing the
+# project only pulls in its dependencies.
+[tool.hatch.build.targets.wheel]
+bypass-selection = true
 

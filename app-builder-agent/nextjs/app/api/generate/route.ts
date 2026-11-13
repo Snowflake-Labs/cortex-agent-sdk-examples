@@ -58,7 +58,7 @@ export async function POST(req: Request): Promise<Response> {
     async start(controller) {
       try {
         const conversation: Conversation = threadId
-          ? await client.conversations.attach(threadId)
+          ? await client.conversations.attach(String(threadId))
           : await client.conversations.create({
               thread: { origin_application: "app-builder" },
               agent: agentConfig,

@@ -97,8 +97,7 @@ try:
         for event in allow_stream.events
     )
     allow_saw_client_tool_use_request = any(
-        event.get("event") == "response.status"
-        and event.get("status") == "client_tool_use_request"
+        event.get("event") == "response.status" and event.get("status") == "client_tool_use_request"
         for event in allow_stream.events
     )
 

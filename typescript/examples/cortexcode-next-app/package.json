@@ -9,7 +9,7 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
-    "@snowflake/cortex-agent-sdk": "^0.0.2",
+    "@snowflake/cortex-agent-sdk": "^0.0.3",
     "next": "^15.5.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"

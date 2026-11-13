@@ -34,7 +34,7 @@ client = CortexAgentClient(
 print("=== Auto-pagination (page_size=3) ===")
 count = 0
 for thread in client.threads.list(page_size=3):
-    print(f"  thread_id={thread['thread_id']} name=\"{thread.get('thread_name') or '(untitled)'}\"")
+    print(f'  thread_id={thread["thread_id"]} name="{thread.get("thread_name") or "(untitled)"}"')
     count += 1
     if count >= 10:
         break
