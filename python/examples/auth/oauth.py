@@ -49,7 +49,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from _run_conversation import run_conversation
-from cortex_agent_sdk import CortexAgentClient, OAuthAuth
+from snowflake.cortex.agents import CortexAgentClient, OAuthAuth
 from typing_extensions import NotRequired
 
 

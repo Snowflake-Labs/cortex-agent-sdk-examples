@@ -22,10 +22,10 @@ import json
 import os
 from collections.abc import AsyncGenerator
 
-from cortex_agent_sdk import Conversation, CortexAgentClient
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
+from snowflake.cortex.agents import Conversation, CortexAgentClient
 
 app = FastAPI()
 

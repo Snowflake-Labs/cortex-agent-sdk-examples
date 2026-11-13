@@ -24,7 +24,7 @@ from __future__ import annotations
 import json
 import os
 
-from cortex_agent_sdk.api import (
+from snowflake.cortex.agents.api import (
     CortexAgentClient,
     EventType,
     ThreadMessageView,

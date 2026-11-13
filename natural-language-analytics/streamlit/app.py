@@ -32,7 +32,7 @@ from __future__ import annotations
 import os
 
 import streamlit as st
-from cortex_agent_sdk.api import CortexAgentClient, StreamEvent
+from snowflake.cortex.agents.api import CortexAgentClient, StreamEvent
 
 # ---------------------------------------------------------------------------
 # Page config

@@ -35,8 +35,8 @@ import asyncio
 import os
 import time
 
-from cortex_agent_sdk import AsyncConversation
-from cortex_agent_sdk.api import AsyncCortexAgentClient, StreamEvent
+from snowflake.cortex.agents import AsyncConversation
+from snowflake.cortex.agents.api import AsyncCortexAgentClient, StreamEvent
 
 PROMPT = "In one sentence, what is Snowflake?"
 

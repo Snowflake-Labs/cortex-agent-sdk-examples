@@ -27,7 +27,7 @@ from collections.abc import Sequence
 from dataclasses import replace
 from typing import Any
 
-from cortex_agent_sdk.cortexcode import (
+from snowflake.cortex.agents.cortexcode import (
     AssistantMessage,
     CortexCodeAgentOptions,
     CortexCodeSDKClient,

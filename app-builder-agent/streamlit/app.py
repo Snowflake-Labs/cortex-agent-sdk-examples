@@ -20,7 +20,7 @@ from __future__ import annotations
 import os
 
 import streamlit as st
-from cortex_agent_sdk import AgentResponse, CortexAgentClient, Turn
+from snowflake.cortex.agents import AgentResponse, CortexAgentClient, Turn
 
 st.set_page_config(page_title="App Builder Agent", page_icon="\u2692\ufe0f")
 st.title("App Builder Agent")

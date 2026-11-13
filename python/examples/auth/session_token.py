@@ -19,7 +19,7 @@ import os
 
 import snowflake.connector
 from _run_conversation import run_conversation
-from cortex_agent_sdk import CortexAgentClient, SnowflakeSessionTokenAuth
+from snowflake.cortex.agents import CortexAgentClient, SnowflakeSessionTokenAuth
 
 connection_name = os.getenv("CORTEX_EXAMPLE_CONNECTION", "default")
 connection = snowflake.connector.connect(connection_name=connection_name)

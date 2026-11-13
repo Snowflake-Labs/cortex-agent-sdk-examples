@@ -38,11 +38,11 @@ import re
 import time
 from collections import Counter
 
-from cortex_agent_sdk import (
+from snowflake.cortex.agents import (
     Conversation,
     CortexAgentError,
 )
-from cortex_agent_sdk.api import (
+from snowflake.cortex.agents.api import (
     AgentEvent,
     AgentResponseView,
     CortexAgentClient,

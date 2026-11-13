@@ -21,6 +21,10 @@ Python examples for `snowflake-cortex-agent-sdk`.
 
 ## Setup
 
+The Python examples use `snowflake.cortex.agents`, provided by the standalone
+`snowflake-cortex-agent-sdk` package. Install a release that includes this
+namespace before running these examples.
+
 Create an environment and install dependencies from the repository root:
 
 ```bash

@@ -23,14 +23,14 @@ from __future__ import annotations
 
 import os
 
-from cortex_agent_sdk import (
+from snowflake.cortex.agents import (
     AuthenticationError,
     BadRequestError,
     CortexAgentAPIError,
     NotFoundError,
     RateLimitError,
 )
-from cortex_agent_sdk.api import CortexAgentClient
+from snowflake.cortex.agents.api import CortexAgentClient
 
 account = os.getenv("SNOWFLAKE_ACCOUNT")
 

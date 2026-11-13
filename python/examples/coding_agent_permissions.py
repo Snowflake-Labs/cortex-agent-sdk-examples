@@ -33,8 +33,8 @@ from __future__ import annotations
 import os
 
 import snowflake.connector
-from cortex_agent_sdk import SnowflakeSessionTokenAuth
-from cortex_agent_sdk.api import AgentEvent, CortexAgentClient
+from snowflake.cortex.agents import SnowflakeSessionTokenAuth
+from snowflake.cortex.agents.api import AgentEvent, CortexAgentClient
 
 
 def permission_options(event: AgentEvent) -> list[str]:
