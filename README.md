@@ -119,6 +119,10 @@ npm run format:check
 
 ## Python setup
 
+The Python examples use `snowflake.cortex.agents`, provided by the standalone
+`snowflake-cortex-agent-sdk` package. Install a release that includes this
+namespace before running these examples.
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate

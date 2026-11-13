@@ -34,8 +34,8 @@ import os
 import re
 
 import snowflake.connector
-from cortex_agent_sdk import SnowflakeSessionTokenAuth
-from cortex_agent_sdk.api import AgentEvent, CortexAgentClient
+from snowflake.cortex.agents import SnowflakeSessionTokenAuth
+from snowflake.cortex.agents.api import AgentEvent, CortexAgentClient
 
 MCP_SERVER_FQN = os.getenv(
     "SNOWFLAKE_MCP_SERVER", "CORTEX_AGENT_SDK_EXAMPLES.PUBLIC.SDK_SQL_EXEC_MCP"

@@ -27,7 +27,7 @@ import tempfile
 from collections.abc import Sequence
 from pathlib import Path
 
-from cortex_agent_sdk.cortexcode import (
+from snowflake.cortex.agents.cortexcode import (
     AssistantMessage,
     CortexCodeAgentOptions,
     CortexCodeSDKClient,

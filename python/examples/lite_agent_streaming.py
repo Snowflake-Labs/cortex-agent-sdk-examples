@@ -32,7 +32,7 @@ from __future__ import annotations
 import os
 import sys
 
-from cortex_agent_sdk.api import AgentEvent, CortexAgentClient, StreamEvent
+from snowflake.cortex.agents.api import AgentEvent, CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
     account=os.getenv("SNOWFLAKE_ACCOUNT"),

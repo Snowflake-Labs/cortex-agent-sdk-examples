@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import os
 
-from cortex_agent_sdk import AgentResponse, Conversation, CortexAgentClient, Turn
+from snowflake.cortex.agents import AgentResponse, Conversation, CortexAgentClient, Turn
 
 client: CortexAgentClient = CortexAgentClient(
     account=os.getenv("SNOWFLAKE_ACCOUNT"),

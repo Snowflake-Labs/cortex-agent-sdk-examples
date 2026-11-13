@@ -27,7 +27,7 @@ from __future__ import annotations
 
 import os
 
-from cortex_agent_sdk.api import (
+from snowflake.cortex.agents.api import (
     AgentResponseView,
     CortexAgentClient,
     StreamEvent,

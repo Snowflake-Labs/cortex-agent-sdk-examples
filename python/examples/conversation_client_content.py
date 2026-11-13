@@ -26,7 +26,7 @@ from __future__ import annotations
 import os
 
 import snowflake.connector
-from cortex_agent_sdk import (
+from snowflake.cortex.agents import (
     Conversation,
     ConversationInput,
     CortexAgentClient,
