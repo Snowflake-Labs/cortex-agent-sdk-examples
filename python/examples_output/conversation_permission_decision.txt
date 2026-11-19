@@ -1,0 +1,8 @@
+permission request
+  tool: bash
+  options: ['Allow this command', 'Allow all bash for this session', 'Deny']
+  selected decision: Allow this command
+  continued text: The stdout is:
+```
+conversation-permission-example-ok
+```

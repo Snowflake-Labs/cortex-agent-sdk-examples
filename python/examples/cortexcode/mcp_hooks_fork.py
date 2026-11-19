@@ -16,7 +16,7 @@
 """Exercise SDK MCP tools, tool hooks, and session forking through the CLI.
 
 Usage:
-    CORTEX_CONN=my_connection uv run python examples/cortexcode/mcp_hooks_fork.py
+    CORTEX_CONN=my_connection uv run python python/examples/cortexcode/mcp_hooks_fork.py
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ from collections.abc import Sequence
 from dataclasses import replace
 from typing import Any
 
-from cortex_agent_sdk.cortexcode import (
+from snowflake.cortex.agents.cortexcode import (
     AssistantMessage,
     CortexCodeAgentOptions,
     CortexCodeSDKClient,

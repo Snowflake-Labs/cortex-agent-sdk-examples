@@ -34,7 +34,7 @@ I'll check the stock data using the analyst tool.The lowest closing price is **$
   drained 42 events, kinds=[response, response.status, response.suggested_queries, response.text, response.text.delta, response.thinking, response.thinking.delta, response.tool_result, response.tool_result.status, response.tool_use]
 
 === Background pinned-version run (run_version, background=True -> BackgroundRun) ===
-  kickoff: status=in_progress run_id=8834748022930-8834750610806
+  kickoff: status=in_progress run_id=1000000000032-1000000000033
   view.role:            assistant
   view.text (first 200): AAPL's most recent close was $171.21 on 2023-09-29, hovering in the $170–$179 range over the prior two weeks.
 
@@ -42,9 +42,9 @@ I'll check the stock data using the analyst tool.The lowest closing price is **$
   view.content items:   8
   view.tool_uses:       2
   view.tool_results:    2
-  view.metadata run_id: 8834748022930-8834750610806
+  view.metadata run_id: 1000000000032-1000000000033
   view.events:          43
-  deleted bg thread 8834748022930
+  deleted bg thread 1000000000032
 
 === Delete agent ===
 deleted MY_DATABASE.PUBLIC.SDK_EXAMPLE_AGENT_84918 (status: SDK_EXAMPLE_AGENT_84918 successfully dropped.)

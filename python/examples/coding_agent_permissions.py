@@ -16,8 +16,8 @@
 """Managed coding-agent permission policies.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/coding_agent_permissions.py
-    CORTEX_EXAMPLE_CONNECTION=default python examples/coding_agent_permissions.py
+    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python python/examples/coding_agent_permissions.py
+    CORTEX_EXAMPLE_CONNECTION=default python python/examples/coding_agent_permissions.py
 
 For regional, PrivateLink, custom, or proxy endpoints, set
 SNOWFLAKE_BASE_URL instead of SNOWFLAKE_ACCOUNT.
@@ -33,8 +33,8 @@ from __future__ import annotations
 import os
 
 import snowflake.connector
-from cortex_agent_sdk import SnowflakeSessionTokenAuth
-from cortex_agent_sdk.api import AgentEvent, CortexAgentClient
+from snowflake.cortex.agents import SnowflakeSessionTokenAuth
+from snowflake.cortex.agents.api import AgentEvent, CortexAgentClient
 
 
 def permission_options(event: AgentEvent) -> list[str]:

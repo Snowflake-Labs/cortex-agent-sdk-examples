@@ -26,7 +26,7 @@ Every method mirrors the sync client, awaited. Sections:
   8. ``with_raw_response`` for headers and retry count
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/async_client.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/async_client.py
 """
 
 from __future__ import annotations
@@ -35,14 +35,15 @@ import asyncio
 import os
 import time
 
-from cortex_agent_sdk import AsyncConversation
-from cortex_agent_sdk.api import AsyncCortexAgentClient, StreamEvent
+from snowflake.cortex.agents import AsyncConversation
+from snowflake.cortex.agents.api import AsyncCortexAgentClient, StreamEvent
 
 PROMPT = "In one sentence, what is Snowflake?"
 
 
 def build_client() -> AsyncCortexAgentClient:
     return AsyncCortexAgentClient(
+        base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
         account=os.getenv("SNOWFLAKE_ACCOUNT"),
         auth=os.environ["SNOWFLAKE_PAT"],
     )

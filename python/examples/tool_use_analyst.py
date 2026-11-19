@@ -24,7 +24,7 @@ Both emit the same v2 spec events (``response.tool_use``,
 ``response.tool_result``, ...).
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/tool_use_analyst.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/tool_use_analyst.py
 """
 
 from __future__ import annotations
@@ -32,9 +32,10 @@ from __future__ import annotations
 import os
 import sys
 
-from cortex_agent_sdk.api import AgentEvent, CortexAgentClient, StreamEvent
+from snowflake.cortex.agents.api import AgentEvent, CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
@@ -108,7 +109,6 @@ print("=== Analyst tool — named agent path ===")
 agent = {
     "database": os.environ["SNOWFLAKE_DATABASE"],
     "schema": os.getenv("SNOWFLAKE_SCHEMA", "PUBLIC"),
-    # A throwaway agent: it is replaced on create and dropped in `finally`.
     "name": f"SDK_ANALYST_EXAMPLE_{os.getpid()}",
 }
 print(f"  agent: {agent['database']}.{agent['schema']}.{agent['name']}\n")

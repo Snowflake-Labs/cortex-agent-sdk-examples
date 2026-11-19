@@ -18,7 +18,7 @@
 import os
 
 from _run_conversation import run_conversation
-from cortex_agent_sdk import CortexAgentClient, KeyPairJwtAuth
+from snowflake.cortex.agents import CortexAgentClient, KeyPairJwtAuth
 
 
 def mint_jwt() -> str:

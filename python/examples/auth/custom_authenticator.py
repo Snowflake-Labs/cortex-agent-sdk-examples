@@ -18,7 +18,7 @@
 import os
 
 from _run_conversation import run_conversation
-from cortex_agent_sdk import CortexAgentClient
+from snowflake.cortex.agents import CortexAgentClient
 
 
 class SecretStorePatAuth:

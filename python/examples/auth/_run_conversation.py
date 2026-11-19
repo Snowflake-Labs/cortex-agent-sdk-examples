@@ -15,7 +15,7 @@
 
 """Shared minimal Agent API verification used by the authentication examples."""
 
-from cortex_agent_sdk import AgentResponse, Conversation, CortexAgentClient, Turn
+from snowflake.cortex.agents import AgentResponse, Conversation, CortexAgentClient, Turn
 
 
 def run_conversation(client: CortexAgentClient) -> None:

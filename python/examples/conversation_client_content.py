@@ -23,10 +23,11 @@ Set CORTEX_EXAMPLE_BASE_URL when the profile's connector host is not the Agent A
 
 from __future__ import annotations
 
+import math
 import os
 
 import snowflake.connector
-from cortex_agent_sdk import (
+from snowflake.cortex.agents import (
     Conversation,
     ConversationInput,
     CortexAgentClient,
@@ -49,27 +50,66 @@ else:
         base_url=os.getenv("CORTEX_EXAMPLE_BASE_URL", f"https://{api_host}"),
         auth=SnowflakeSessionTokenAuth(lambda: connection.rest.token),
     )
-conversation: Conversation = client.conversations.create(origin_application="cortex_agent_sdk")
+conversation: Conversation = client.conversations.create(
+    origin_application="cortex_agent_sdk",
+    agent={
+        "type": "inline",
+        "spec": {
+            "models": {"orchestration": "auto"},
+            "tools": [
+                {
+                    "tool_spec": {
+                        "type": "generic",
+                        "name": "convert_temperature",
+                        "description": "Convert a temperature from Celsius to Fahrenheit.",
+                        "input_schema": {
+                            "type": "object",
+                            "properties": {"celsius": {"type": "number"}},
+                            "required": ["celsius"],
+                        },
+                    }
+                }
+            ],
+        },
+    },
+)
 document_url = os.getenv("CORTEX_EXAMPLE_DOCUMENT_URL")
 
 try:
-    # In a client-side tool loop, use the tool_use_id from the corresponding
-    # tool-use request. The result becomes part of this user message.
-    tool_result: ConversationInput = [
-        {
-            "type": "tool_result",
-            "tool_result": {
-                "tool_use_id": "toolu_client_weather_001",
-                "name": "weather",
-                "status": "success",
-                "content": [
-                    {"type": "json", "json": {"temperature_c": 21, "condition": "clear"}},
-                    {"type": "text", "text": "Weather supplied by the client."},
-                ],
-            },
-        },
-        {"type": "text", "text": "Use this result for a one-sentence forecast."},
-    ]
+    pending_turn = conversation.send(
+        "Use convert_temperature to convert 20 degrees Celsius to Fahrenheit."
+    )
+    tool_uses = pending_turn.client_tool_uses()
+    if not tool_uses or any(tool.name != "convert_temperature" for tool in tool_uses):
+        raise RuntimeError("The agent did not request the temperature conversion tool")
+
+    # Return content using the IDs from the pending client-side tool requests.
+    tool_result: ConversationInput = []
+    for tool in tool_uses:
+        celsius = tool.input.get("celsius")
+        if (
+            isinstance(celsius, bool)
+            or not isinstance(celsius, (int, float))
+            or not math.isfinite(celsius)
+        ):
+            raise ValueError("celsius must be a finite number")
+        tool_result.append(
+            {
+                "type": "tool_result",
+                "tool_result": {
+                    "tool_use_id": tool.tool_use_id,
+                    "name": tool.name,
+                    "status": "success",
+                    "content": [
+                        {
+                            "type": "json",
+                            "json": {"celsius": celsius, "fahrenheit": celsius * 9 / 5 + 32},
+                        },
+                        {"type": "text", "text": "Temperature converted by the client."},
+                    ],
+                },
+            }
+        )
     tool_turn: Turn = conversation.send(tool_result)
     print(f"tool-result response: {tool_turn.result().text!r}")
 

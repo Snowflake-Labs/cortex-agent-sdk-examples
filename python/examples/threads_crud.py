@@ -16,7 +16,7 @@
 """Threads CRUD: create a thread, run the agent inside it, list messages, delete.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/threads_crud.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/threads_crud.py
 """
 
 from __future__ import annotations
@@ -24,13 +24,14 @@ from __future__ import annotations
 import json
 import os
 
-from cortex_agent_sdk.api import (
+from snowflake.cortex.agents.api import (
     CortexAgentClient,
     EventType,
     ThreadMessageView,
 )
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

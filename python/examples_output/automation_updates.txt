@@ -1,0 +1,11 @@
+=== Update agent automation ===
+alter HTTP status: 200
+verified: task ID, suspended state, prompt, schedule and display name
+verified: started task resumed after update
+temporary task deleted
+=== Update coding automation ===
+alter HTTP status: 200
+verified: task ID, suspended state, prompt, schedule and display name
+verified: started task resumed after update
+temporary task deleted
+temporary agent deleted

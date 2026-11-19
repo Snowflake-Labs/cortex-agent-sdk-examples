@@ -33,10 +33,10 @@ import os
 import queue
 import threading
 
-from cortex_agent_sdk.api import CortexAgentClient, StreamEvent
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
+from snowflake.cortex.agents.api import CortexAgentClient, StreamEvent
 
 app = FastAPI()
 

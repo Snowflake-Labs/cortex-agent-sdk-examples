@@ -1,0 +1,26 @@
+CoCo workspace: no mount (isolated sandbox); report email disabled
+=== Create automation ===
+task: SDK_COCO_AUTOMATION_PY_EXAMPLE
+SQL statement: <id>
+
+=== List and describe ===
+state: suspended
+schedule: USING CRON 0 0 1 1 * UTC
+task ID: <id>
+describe: returned the task definition
+
+=== Resume and suspend ===
+after resume: started
+after suspend: suspended
+
+=== Execute once and verify persisted response ===
+one-off execution submitted
+assistant: SDK_COCO_AUTOMATION_OK_EXAMPLE
+full persisted thread response (message_payload decoded):
+[omitted from sample]
+sandbox tools invoked: bash
+verified: result persisted in an automation-owned thread
+
+=== Cleanup ===
+automation deleted and absent from list
+temporary threads deleted: 1

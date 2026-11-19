@@ -1,0 +1,2 @@
+client tool: convert_temperature input={'celsius': 20}
+assistant: 20 degrees Celsius is 68 degrees Fahrenheit.

@@ -6,7 +6,7 @@
   run_id: None
 
 === Non-streaming + request_with_response ===
-  x-snowflake-request-id: 1cc37ea3-ef14-45d0-a14d-5d0d274ac5fe
+  x-snowflake-request-id: 00000000-0000-4000-8000-000000000009
   text: "Blue."
 
 === Data agent (non-streaming) ===
@@ -22,12 +22,12 @@
   tables: 1
 
 === Background run (stream=False, background=True -> BackgroundRun) ===
-  kickoff: status=in_progress run_id=8834748022934-8834750610822
+  kickoff: status=in_progress run_id=1000000000034-1000000000035
   view.role:           assistant
   view.text:           TSLA's most recent close in the data was **$250.22** on 2023-09-29.
   view.content items:  7
-  view.metadata run_id: 8834748022934-8834750610822
+  view.metadata run_id: 1000000000034-1000000000035
   view.events:         46
-  deleted thread 8834748022934
+  deleted thread 1000000000034
 
   deleted agent SDK_NONSTREAMING_EXAMPLE_85321

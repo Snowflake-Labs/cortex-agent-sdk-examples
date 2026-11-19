@@ -25,17 +25,18 @@ wrapper. ``starting_after`` skips events before a given sequence number — hand
 for reconnecting mid-run without replaying from scratch.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/runs.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/runs.py
 """
 
 from __future__ import annotations
 
 import os
 
-from cortex_agent_sdk import CortexAgentAPIError
-from cortex_agent_sdk.api import CortexAgentClient, StreamEvent
+from snowflake.cortex.agents import CortexAgentAPIError
+from snowflake.cortex.agents.api import CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

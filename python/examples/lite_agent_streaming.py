@@ -24,7 +24,7 @@ This example registers a callback on every channel that a tool-using run
 exercises, then drains the stream with ``final_text()``.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/lite_agent_streaming.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/lite_agent_streaming.py
 """
 
 from __future__ import annotations
@@ -32,9 +32,10 @@ from __future__ import annotations
 import os
 import sys
 
-from cortex_agent_sdk.api import AgentEvent, CortexAgentClient, StreamEvent
+from snowflake.cortex.agents.api import AgentEvent, CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

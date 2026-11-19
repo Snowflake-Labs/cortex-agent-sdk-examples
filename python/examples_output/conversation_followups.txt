@@ -1,0 +1,19 @@
+  thread <id>
+=== 1. First turn ===
+  run <id>
+  message <id>
+  Snowflake is a cloud-based data platform that provides scalable storage, compute, and analytics as a fully managed service, enabling organizations to store, pro
+=== 2. Follow-up uses the previous assistant message ===
+  message <id>
+  In my previous one-sentence answer, the first (and only) named product was Snowflake itself — I described it as a cloud-based data platform but didn't name any
+=== 3. attach keeps the agent ===
+  message <id>
+  Snowflake.
+  deleted thread <id>
+=== 4. Async client ===
+  thread <id>
+  message <id>
+  In Snowflake, a warehouse (virtual warehouse) is a cluster of compute resources that provides the CPU, memory, and temporary storage needed to execute queries,
+  message <id>
+  A warehouse executes queries—it provides the compute power to run SQL statements and return results.
+  deleted thread <id>

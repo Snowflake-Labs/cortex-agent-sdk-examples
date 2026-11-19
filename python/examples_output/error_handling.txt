@@ -1,10 +1,10 @@
 === NotFoundError (describe nonexistent thread) ===
   Caught NotFoundError: Thread 999999999 does not exist or not authorized for this user
   Status: 404
-  Request ID: 2187d49e-ee57-4d5c-837a-9cd8b74d1247
+  Request ID: 00000000-0000-4000-8000-000000000006
 
 === request_with_response (get the request ID on success) ===
-  Request ID:   13d4b259-6b02-4787-9d6e-52a3ad6730dc
+  Request ID:   00000000-0000-4000-8000-000000000007
   HTTP status:  200
   Threads read: 3
 

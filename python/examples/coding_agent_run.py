@@ -28,7 +28,7 @@ Sections:
   5. client-side validation that never reaches the wire
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/coding_agent_run.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/coding_agent_run.py
 """
 
 from __future__ import annotations
@@ -38,11 +38,11 @@ import re
 import time
 from collections import Counter
 
-from cortex_agent_sdk import (
+from snowflake.cortex.agents import (
     Conversation,
     CortexAgentError,
 )
-from cortex_agent_sdk.api import (
+from snowflake.cortex.agents.api import (
     AgentEvent,
     AgentResponseView,
     CortexAgentClient,
@@ -73,6 +73,7 @@ def extract_bash_stdout(view: AgentResponseView) -> str:
 
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
@@ -281,6 +282,7 @@ try:
             "permission_policy": "always_allow",
             "models": {"orchestration": "claude-sonnet-4-5"},
             "thread_id": bg_thread["thread_id"],
+            # Python ids are unbounded ints. The TypeScript SDK uses the string "0".
             "parent_message_id": 0,
             "stream": False,
             "background": True,

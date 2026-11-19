@@ -16,25 +16,27 @@
 """Error handling with status-specific exception subclasses.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/error_handling.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/error_handling.py
 """
 
 from __future__ import annotations
 
 import os
 
-from cortex_agent_sdk import (
+from snowflake.cortex.agents import (
     AuthenticationError,
     BadRequestError,
     CortexAgentAPIError,
     NotFoundError,
     RateLimitError,
 )
-from cortex_agent_sdk.api import CortexAgentClient
+from snowflake.cortex.agents.api import CortexAgentClient
 
+base_url = f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None
 account = os.getenv("SNOWFLAKE_ACCOUNT")
 
 client = CortexAgentClient(
+    base_url=base_url,
     account=account,
     auth=os.environ["SNOWFLAKE_PAT"],
     max_retries=2,
@@ -76,7 +78,7 @@ def mint_token() -> str:
     return os.environ["SNOWFLAKE_PAT"]
 
 
-rotating_client = CortexAgentClient(account=account, auth=mint_token)
+rotating_client = CortexAgentClient(base_url=base_url, account=account, auth=mint_token)
 rotating_client.threads.list(page_size=1)
 print("  Listed threads with callable auth")
 

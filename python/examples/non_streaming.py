@@ -23,17 +23,18 @@ Adding ``background: True`` returns immediately with an ``BackgroundRun`` handle
 instead of waiting.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/non_streaming.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/non_streaming.py
 """
 
 from __future__ import annotations
 
 import os
 
-from cortex_agent_sdk import CortexAgentAPIError
-from cortex_agent_sdk.api import AgentResponseView, CortexAgentClient
+from snowflake.cortex.agents import CortexAgentAPIError
+from snowflake.cortex.agents.api import AgentResponseView, CortexAgentClient
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )
