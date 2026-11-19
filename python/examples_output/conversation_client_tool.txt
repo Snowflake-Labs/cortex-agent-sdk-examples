@@ -1,0 +1,2 @@
+client tool: get_weather input={'location': 'San Francisco'}
+assistant: The current weather in San Francisco is clear with a temperature of 18°C.

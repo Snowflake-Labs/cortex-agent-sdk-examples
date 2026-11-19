@@ -23,7 +23,7 @@ The second half re-runs the same prompt through the raw iterator and tallies
 event counts, which is the quickest way to see what a given agent actually emits.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/all_events.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/all_events.py
 """
 
 from __future__ import annotations
@@ -40,6 +40,7 @@ from snowflake.cortex.agents.api import (
 )
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

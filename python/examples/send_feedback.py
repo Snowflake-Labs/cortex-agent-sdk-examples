@@ -24,7 +24,7 @@ Creates its own data agent with a ``cortex_analyst_text_to_sql`` tool so the
 example is self-contained.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/send_feedback.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/send_feedback.py
 """
 
 from __future__ import annotations
@@ -35,6 +35,7 @@ import sys
 from snowflake.cortex.agents.api import CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

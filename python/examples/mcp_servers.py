@@ -16,8 +16,8 @@
 """Attach Snowflake MCP SERVER objects to lite agent:run and data-agent specs.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/mcp_servers.py
-    CORTEX_EXAMPLE_CONNECTION=default python examples/mcp_servers.py
+    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python python/examples/mcp_servers.py
+    CORTEX_EXAMPLE_CONNECTION=default python python/examples/mcp_servers.py
 
 For regional, PrivateLink, custom, or proxy endpoints, set
 SNOWFLAKE_BASE_URL instead of SNOWFLAKE_ACCOUNT.

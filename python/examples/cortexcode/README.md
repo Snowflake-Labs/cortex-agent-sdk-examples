@@ -22,7 +22,7 @@ Python Cortex Code examples.
 Run from the repository root:
 
 ```bash
-CORTEX_EXAMPLE_CONNECTION=default \
+CORTEX_CONN=default \
   python python/examples/cortexcode/query_cli.py
 ```
 

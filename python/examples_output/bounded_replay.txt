@@ -1,0 +1,7 @@
+backend=local-http
+live events: 5; retained replay events: 2
+complete accumulated text: abcde
+replay events after clear: 0
+Replay limits cap retained event payloads; accumulated output is still retained.
+byte budget: FIFO evicts 2 oldest; oversized event clears; next 2 retained; all 7 delivered (sync/async)
+result helpers: 1,201 wire events; retained 1,000 / 2 / 0 / 0; final answer preserved (8 surfaces)

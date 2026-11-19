@@ -16,7 +16,7 @@
 """Exercise one-shot and interactive Cortex Code SDK features through the CLI.
 
 Usage:
-    CORTEX_CONN=my_connection uv run python examples/cortexcode/query_cli.py
+    CORTEX_CONN=my_connection uv run python python/examples/cortexcode/query_cli.py
 """
 
 from __future__ import annotations

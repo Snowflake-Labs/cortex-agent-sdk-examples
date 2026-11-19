@@ -20,7 +20,7 @@ Every newly created data agent gets a default ``VERSION$1``, so
 version.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/data_agent_crud.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/data_agent_crud.py
 """
 
 from __future__ import annotations
@@ -34,6 +34,7 @@ from snowflake.cortex.agents.api import (
 )
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

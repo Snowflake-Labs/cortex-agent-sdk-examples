@@ -24,8 +24,12 @@ Run commands from the repository root. Most Agent API examples use
 
 ```bash
 SNOWFLAKE_ACCOUNT=myaccount SNOWFLAKE_PAT='...' \
-  python python/examples/non_streaming.py
+  python python/examples/conversation_followups.py
 ```
+
+For examples that accept `SNOWFLAKE_HOST`, set it to the hostname without
+`https://` when the account URL cannot be derived from `SNOWFLAKE_ACCOUNT`.
+Some examples use `SNOWFLAKE_BASE_URL` instead; check their usage comments.
 
 Examples that reuse an existing Snowflake connector session use a local
 connection profile:
@@ -46,6 +50,12 @@ CORTEX_EXAMPLE_CONNECTION=default \
 - `conversation.py`: use the conversation interface.
 - `conversation_manual.py`: manually manage a conversation-like flow.
 - `conversation_client_content.py`: send client-supplied content.
+- `conversation_client_tool.py`: handle client-side tool requests.
+- `conversation_followups.py`: continue and attach to conversations, sync and async.
+- `conversation_permission_decision.py`: respond to a coding-agent permission request.
+- `automations.py`, `automation_updates.py`, `coding_automations.py`: create,
+  update, and clean up scheduled automations.
+- `bounded_replay.py`: exercise stream replay limits with a local HTTP fixture.
 - `threads_crud.py`: create, update, list, describe, and delete threads.
 - `pagination.py`: iterate paginated thread results.
 - `runs.py`: inspect background runs.

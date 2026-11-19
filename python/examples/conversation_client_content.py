@@ -49,26 +49,52 @@ else:
         base_url=os.getenv("CORTEX_EXAMPLE_BASE_URL", f"https://{api_host}"),
         auth=SnowflakeSessionTokenAuth(lambda: connection.rest.token),
     )
-conversation: Conversation = client.conversations.create(origin_application="cortex_agent_sdk")
+conversation: Conversation = client.conversations.create(
+    origin_application="cortex_agent_sdk",
+    agent={
+        "type": "inline",
+        "spec": {
+            "models": {"orchestration": "auto"},
+            "tools": [
+                {
+                    "tool_spec": {
+                        "type": "generic",
+                        "name": "weather",
+                        "description": "Get the current weather for a city.",
+                        "input_schema": {
+                            "type": "object",
+                            "properties": {"location": {"type": "string"}},
+                            "required": ["location"],
+                        },
+                    }
+                }
+            ],
+        },
+    },
+)
 document_url = os.getenv("CORTEX_EXAMPLE_DOCUMENT_URL")
 
 try:
-    # In a client-side tool loop, use the tool_use_id from the corresponding
-    # tool-use request. The result becomes part of this user message.
+    pending_turn = conversation.send("Use the weather tool for San Francisco.")
+    tool_uses = pending_turn.client_tool_uses()
+    if not tool_uses or any(tool.name != "weather" for tool in tool_uses):
+        raise RuntimeError("The agent did not request the weather tool")
+
+    # Return content using the IDs from the pending client-side tool requests.
     tool_result: ConversationInput = [
         {
             "type": "tool_result",
             "tool_result": {
-                "tool_use_id": "toolu_client_weather_001",
-                "name": "weather",
+                "tool_use_id": tool.tool_use_id,
+                "name": tool.name,
                 "status": "success",
                 "content": [
                     {"type": "json", "json": {"temperature_c": 21, "condition": "clear"}},
                     {"type": "text", "text": "Weather supplied by the client."},
                 ],
             },
-        },
-        {"type": "text", "text": "Use this result for a one-sentence forecast."},
+        }
+        for tool in tool_uses
     ]
     tool_turn: Turn = conversation.send(tool_result)
     print(f"tool-result response: {tool_turn.result().text!r}")

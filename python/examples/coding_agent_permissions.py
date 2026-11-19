@@ -16,8 +16,8 @@
 """Managed coding-agent permission policies.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/coding_agent_permissions.py
-    CORTEX_EXAMPLE_CONNECTION=default python examples/coding_agent_permissions.py
+    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python python/examples/coding_agent_permissions.py
+    CORTEX_EXAMPLE_CONNECTION=default python python/examples/coding_agent_permissions.py
 
 For regional, PrivateLink, custom, or proxy endpoints, set
 SNOWFLAKE_BASE_URL instead of SNOWFLAKE_ACCOUNT.

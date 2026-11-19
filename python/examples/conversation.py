@@ -22,6 +22,7 @@ import os
 from snowflake.cortex.agents import AgentResponse, Conversation, CortexAgentClient, Turn
 
 client: CortexAgentClient = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

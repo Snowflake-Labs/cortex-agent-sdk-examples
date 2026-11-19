@@ -28,7 +28,7 @@ threading with unusual body fields, or integrate with code that already tracks
 these ids.
 
 Usage:
-    SNOWFLAKE_ACCOUNT=... SNOWFLAKE_PAT=... python examples/conversation_manual.py
+    SNOWFLAKE_HOST=... SNOWFLAKE_PAT=... python python/examples/conversation_manual.py
 """
 
 from __future__ import annotations
@@ -38,6 +38,7 @@ import os
 from snowflake.cortex.agents.api import AgentEvent, CortexAgentClient, StreamEvent
 
 client = CortexAgentClient(
+    base_url=f"https://{os.environ['SNOWFLAKE_HOST']}" if os.getenv("SNOWFLAKE_HOST") else None,
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
     auth=os.environ["SNOWFLAKE_PAT"],
 )

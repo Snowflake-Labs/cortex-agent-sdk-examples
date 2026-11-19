@@ -16,7 +16,7 @@
 """Exercise SDK MCP tools, tool hooks, and session forking through the CLI.
 
 Usage:
-    CORTEX_CONN=my_connection uv run python examples/cortexcode/mcp_hooks_fork.py
+    CORTEX_CONN=my_connection uv run python python/examples/cortexcode/mcp_hooks_fork.py
 """
 
 from __future__ import annotations
