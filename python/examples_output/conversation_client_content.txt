@@ -1,2 +1,2 @@
-tool-result response: "Right now in San Francisco it is clear and about 21°C."
+tool-result response: '20 degrees Celsius is 68 degrees Fahrenheit.'
 Skipped document input; set CORTEX_EXAMPLE_DOCUMENT_URL to run it.

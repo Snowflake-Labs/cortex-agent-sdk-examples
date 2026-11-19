@@ -23,6 +23,7 @@ Set CORTEX_EXAMPLE_BASE_URL when the profile's connector host is not the Agent A
 
 from __future__ import annotations
 
+import math
 import os
 
 import snowflake.connector
@@ -59,12 +60,12 @@ conversation: Conversation = client.conversations.create(
                 {
                     "tool_spec": {
                         "type": "generic",
-                        "name": "weather",
-                        "description": "Get the current weather for a city.",
+                        "name": "convert_temperature",
+                        "description": "Convert a temperature from Celsius to Fahrenheit.",
                         "input_schema": {
                             "type": "object",
-                            "properties": {"location": {"type": "string"}},
-                            "required": ["location"],
+                            "properties": {"celsius": {"type": "number"}},
+                            "required": ["celsius"],
                         },
                     }
                 }
@@ -75,27 +76,40 @@ conversation: Conversation = client.conversations.create(
 document_url = os.getenv("CORTEX_EXAMPLE_DOCUMENT_URL")
 
 try:
-    pending_turn = conversation.send("Use the weather tool for San Francisco.")
+    pending_turn = conversation.send(
+        "Use convert_temperature to convert 20 degrees Celsius to Fahrenheit."
+    )
     tool_uses = pending_turn.client_tool_uses()
-    if not tool_uses or any(tool.name != "weather" for tool in tool_uses):
-        raise RuntimeError("The agent did not request the weather tool")
+    if not tool_uses or any(tool.name != "convert_temperature" for tool in tool_uses):
+        raise RuntimeError("The agent did not request the temperature conversion tool")
 
     # Return content using the IDs from the pending client-side tool requests.
-    tool_result: ConversationInput = [
-        {
-            "type": "tool_result",
-            "tool_result": {
-                "tool_use_id": tool.tool_use_id,
-                "name": tool.name,
-                "status": "success",
-                "content": [
-                    {"type": "json", "json": {"temperature_c": 21, "condition": "clear"}},
-                    {"type": "text", "text": "Weather supplied by the client."},
-                ],
-            },
-        }
-        for tool in tool_uses
-    ]
+    tool_result: ConversationInput = []
+    for tool in tool_uses:
+        celsius = tool.input.get("celsius")
+        if (
+            isinstance(celsius, bool)
+            or not isinstance(celsius, (int, float))
+            or not math.isfinite(celsius)
+        ):
+            raise ValueError("celsius must be a finite number")
+        tool_result.append(
+            {
+                "type": "tool_result",
+                "tool_result": {
+                    "tool_use_id": tool.tool_use_id,
+                    "name": tool.name,
+                    "status": "success",
+                    "content": [
+                        {
+                            "type": "json",
+                            "json": {"celsius": celsius, "fahrenheit": celsius * 9 / 5 + 32},
+                        },
+                        {"type": "text", "text": "Temperature converted by the client."},
+                    ],
+                },
+            }
+        )
     tool_turn: Turn = conversation.send(tool_result)
     print(f"tool-result response: {tool_turn.result().text!r}")
 

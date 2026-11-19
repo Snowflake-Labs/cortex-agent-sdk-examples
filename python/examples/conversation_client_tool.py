@@ -24,6 +24,7 @@ SNOWFLAKE_BASE_URL instead of SNOWFLAKE_ACCOUNT.
 
 from __future__ import annotations
 
+import math
 import os
 from typing import Any
 
@@ -31,14 +32,17 @@ from snowflake.cortex.agents import ClientToolUse, CortexAgentClient
 
 
 def execute_client_tool(tool_use: ClientToolUse) -> dict[str, Any]:
-    """Application-owned tool dispatch; replace this fixture with a real service call."""
-    if tool_use.name != "get_weather":
+    """Convert the requested temperature on the client."""
+    if tool_use.name != "convert_temperature":
         raise ValueError(f"Unexpected client tool: {tool_use.name}")
-    location = tool_use.input.get("location")
-    if location != "San Francisco":
-        raise ValueError(f"Unexpected location: {location!r}")
-    # Deterministic example data keeps the recorded example stable.
-    return {"location": location, "temperature_c": 18, "condition": "clear"}
+    celsius = tool_use.input.get("celsius")
+    if (
+        isinstance(celsius, bool)
+        or not isinstance(celsius, (int, float))
+        or not math.isfinite(celsius)
+    ):
+        raise ValueError("celsius must be a finite number")
+    return {"celsius": celsius, "fahrenheit": celsius * 9 / 5 + 32}
 
 
 client = CortexAgentClient(
@@ -60,12 +64,12 @@ try:
                     {
                         "tool_spec": {
                             "type": "generic",
-                            "name": "get_weather",
-                            "description": "Get the current weather for a city.",
+                            "name": "convert_temperature",
+                            "description": "Convert a temperature from Celsius to Fahrenheit.",
                             "input_schema": {
                                 "type": "object",
-                                "properties": {"location": {"type": "string"}},
-                                "required": ["location"],
+                                "properties": {"celsius": {"type": "number"}},
+                                "required": ["celsius"],
                             },
                         }
                     }
@@ -74,7 +78,7 @@ try:
         },
     )
     pending_turn = conversation.send(
-        "Use get_weather for San Francisco, then give the current weather in one sentence."
+        "Use convert_temperature to convert 20 degrees Celsius to Fahrenheit."
     )
     tool_uses = pending_turn.client_tool_uses()
 

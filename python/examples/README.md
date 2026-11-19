@@ -55,7 +55,6 @@ CORTEX_EXAMPLE_CONNECTION=default \
 - `conversation_permission_decision.py`: respond to a coding-agent permission request.
 - `automations.py`, `automation_updates.py`, `coding_automations.py`: create,
   update, and clean up scheduled automations.
-- `bounded_replay.py`: exercise stream replay limits with a local HTTP fixture.
 - `threads_crud.py`: create, update, list, describe, and delete threads.
 - `pagination.py`: iterate paginated thread results.
 - `runs.py`: inspect background runs.
