@@ -20,6 +20,6 @@ To give you the most useful answers, I work off a connected data model. To get s
 
 What would you like to explore? If you're not sure what's available, I can start by showing you what data and metrics exist in your model.
 
-request_id: 7373f070-9780-424d-897c-0a4d68ad5a00
-feedback recorded for request 7373f070-9780-424d-897c-0a4d68ad5a00 (status: None)
+request_id: 00000000-0000-4000-8000-000000000010
+feedback recorded for request 00000000-0000-4000-8000-000000000010 (status: None)
 Deleted agent SDK_FEEDBACK_EXAMPLE_7242

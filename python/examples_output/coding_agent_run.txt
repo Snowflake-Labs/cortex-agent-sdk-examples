@@ -1,6 +1,6 @@
 === 1. coding_agent.stream — always_allow bash, no permission prompt ===
   final text: I'll run that exact command for you.The command completed successfully. Since the directory didn't exist, `rm -rf` silently succeeded with no error (that's the expected behavior of the `-f` flag).
-  request_id: 375bfdfe-301a-4a90-9208-84ca32811f60
+  request_id: 00000000-0000-4000-8000-000000000004
   wire check — permission field on tool_use? False  (expected: False)
   wire check — client_tool_use_request status?  False  (expected: False)
 
@@ -11,40 +11,40 @@
   assistant reply: I have tools for file operations (read, write, edit, glob, grep), bash command execution, Snowflake operations (SQL execution, object search, Cortex Analyst, artifact creation), web search, task management (todos, specialized subagents), agent collaboration, skill loading, and documentation search.
 
 === 3. coding_agent.run — workspace_mounts ===
-  wrote marker CODING_AGENT_WS_1787788956249 to /workspace/coding-agent-example.txt
+  wrote marker CODING_AGENT_WS_1000000000015 to /workspace/coding-agent-example.txt
   marker roundtripped in bash stdout? True  (SDK path OK)
   (real-mount proof is section 4: the same file read back across turns and threads)
   bash stdout:
-CODING_AGENT_WS_1787788956249
+CODING_AGENT_WS_1000000000015
 
 === 4. Conversation.send — persistence across turns ===
-  created thread 8834748022918
-  turn 1 reply: I'll write that text to the file.Done. I've written `CODING_AGENT_PERSIST_1787788969707` to `/workspace/persist.txt`.
-  turn 2 reply: The file contains: `CODING_AGENT_PERSIST_1787788969707`
+  created thread 1000000000016
+  turn 1 reply: I'll write that text to the file.Done. I've written `CODING_AGENT_PERSIST_1000000000017` to `/workspace/persist.txt`.
+  turn 2 reply: The file contains: `CODING_AGENT_PERSIST_1000000000017`
   same-thread persistence? True
   cross-thread persistence? True (after 1 attempt(s))
   cross-thread output: I'll read the contents of that file for you.The file contains:
 
 ```
-1... CODING_AGENT_PERSIST_1787788969707
+1... CODING_AGENT_PERSIST_1000000000017
 ```
 
 This appears to be a persistence marker or identifier, possibly used for tracking or session management.
-  deleted threads 8834748022918 and 8834748022922
+  deleted threads 1000000000016 and 1000000000018
 
 === 4b. coding_agent.run stream=True — raw iterator ===
   drained 19 events, kinds=[response, response.status, response.text, response.text.delta, response.tool_result, response.tool_result.status, response.tool_use]
 
 === 4c. coding_agent.run background=True -> BackgroundRun.wait() -> view ===
-  kickoff: status=in_progress run_id=8834748022926-8834750610794
+  kickoff: status=in_progress run_id=1000000000019-1000000000020
   view.role:            assistant
   view.text:            I'll run that command for you.The command executed successfully and output `background-ok`.
   view.content items:   4
   view.tool_uses:       1
   view.tool_results:    1
-  view.metadata run_id: 8834748022926-8834750610794
+  view.metadata run_id: 1000000000019-1000000000020
   view.events:          20
-  deleted bg thread 8834748022926
+  deleted bg thread 1000000000019
 
 === 5. Client-side validation ===
   nested mount_path rejected: coding_agent: workspace_mounts[0].mount_path '/workspace/nested' must be a top-level path directly under "/" (e.g. "/workspace"). Nested paths fail silently on the server, which does not create intermediate parent directories.

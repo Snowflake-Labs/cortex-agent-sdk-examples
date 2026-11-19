@@ -21,7 +21,9 @@ Representative output from Python examples.
 
 These files are sanitized. Account names, users, roles, warehouses, request IDs,
 thread IDs, run IDs, tool-use IDs, and local paths are placeholders or sample
-values. Use them to understand output shape, not as byte-for-byte assertions.
+values. Numeric IDs beginning with `1000000000`, UUIDs beginning with
+`00000000-0000-4000-8000`, and `toolu_example_` IDs are fabricated.
+Use them to understand output shape, not as byte-for-byte assertions.
 
 Subfolders mirror `../examples/` where applicable:
 

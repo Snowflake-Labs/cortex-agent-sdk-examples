@@ -11,7 +11,7 @@ Found 3 relevant tools
   [thinking complete] (55 chars)
   [status] extracting_tool_calls: Choosing data sources to use
   [status] executing_tools: Getting additional context
-  [tool_use] name=stocks_analyst type=system_agentic_semantic_context id=toolu_bdrk_01BGqv8qVN3dhcykbW2jr8AG
+  [tool_use] name=stocks_analyst type=system_agentic_semantic_context id=toolu_example_4
     input={'pruning_question': 'What are the top 3 stocks by latest closing price?'}
   [tool_result_status] executing_tool: Running stocks_analyst (tool=system_agentic_semantic_context)
   [tool_result] status=success name=stocks_analyst (1 content item(s))
@@ -22,12 +22,12 @@ Found 3 relevant tools
   [thinking complete] (0 chars)
   [status] extracting_tool_calls: Choosing data sources to use
   [status] executing_tools: Getting additional context
-  [tool_use] name=system_execute_sql type=system_execute_sql id=toolu_bdrk_01NpZpLFcHTvkFxMHj5mzHVv
+  [tool_use] name=system_execute_sql type=system_execute_sql id=toolu_example_5
     input={'semantic_model': 'stocks_analyst', 'sql': 'WITH latest AS (\n  SELECT symbol, close, date,\n         ROW_NUMBER() OVER (PARTITION BY symbol ORDER BY date DESC NULLS LAST) AS rn\n  FROM __sample_equity_view\n)\nSELECT symbol, close, date\nFROM latest\nWHERE rn = 1\nORDER BY close DESC NULLS LAST\nLIMIT 3;'}
   [tool_result_status] executing_tool: Running system_execute_sql (tool=system_execute_sql)
   [tool_result_status] Validating SQL: Postprocessing and validating SQL (tool=system_execute_sql)
   [tool_result_status] Executing SQL: Executing SQL (tool=system_execute_sql)
-  [tool_result_status] Executing SQL: Query ID: 01c6a814-001c-b00f-0000-08092b56c80a (tool=system_execute_sql)
+  [tool_result_status] Executing SQL: Query ID: 00000000-0000-4000-8000-000000000008 (tool=system_execute_sql)
   [tool_result_status] SUCCESS: Executing SQL (tool=system_execute_sql)
   [tool_result] status=success name=system_execute_sql (1 content item(s))
   [status] reasoning_agent_stop: Reviewing the results
@@ -37,7 +37,7 @@ The highest-priced stock is Goldman Sachs (GS). Let me look it up on Wikipedia.
   [text complete] (79 chars)
   [status] extracting_tool_calls: Choosing data sources to use
   [status] executing_tools: Getting additional context
-  [tool_use] name=wikipedia type=cortex_search id=toolu_bdrk_013inVdLTHWVp45HWo1ntAWp
+  [tool_use] name=wikipedia type=cortex_search id=toolu_example_6
     input={'query': 'The Goldman Sachs Group'}
   [tool_result_status] executing_tool: Running wikipedia (tool=cortex_search)
   [tool_result_status] sending_search_results: Reviewing search results from wikipedia (tool=cortex_search)
@@ -49,7 +49,7 @@ The Wikipedia search returned generic tech articles, not Goldman Sachs. The corp
   [thinking complete] (263 chars)
   [status] extracting_tool_calls: Choosing data sources to use
   [status] executing_tools: Getting additional context
-  [tool_use] name=wikipedia type=cortex_search id=toolu_bdrk_01VaYBxVov8GcWLusAssoPFJ
+  [tool_use] name=wikipedia type=cortex_search id=toolu_example_7
     input={'query': 'Goldman Sachs investment bank company summary'}
   [tool_result_status] executing_tool: Running wikipedia (tool=cortex_search)
   [tool_result_status] sending_search_results: Reviewing search results from wikipedia (tool=cortex_search)
@@ -61,7 +61,7 @@ Here are the top 3 stocks by latest closing price (as of 2023-09-29, from Cortex
 
 
   [text complete] (92 chars)
-  [table] tool_use_id=toolu_bdrk_01NpZpLFcHTvkFxMHj5mzHVv query_id=01c6a814-001c-b00f-0000-08092b56c80a
+  [table] tool_use_id=toolu_example_5 query_id=00000000-0000-4000-8000-000000000008
 
 
 The highest-priced stock is **Goldman Sachs (GS)** at $323.57.

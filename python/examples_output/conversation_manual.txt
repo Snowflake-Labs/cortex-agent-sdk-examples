@@ -1,4 +1,4 @@
-Created thread: 8834748022762
+Created thread: 1000000000030
 
 Turn 1:
 
@@ -8,7 +8,7 @@ Snowflake Arctic is an enterprise-focused large language model (LLM) developed b
 **Architecture**
 - Arctic u...
 
-Captured assistant message ID: 8834750609706
+Captured assistant message ID: 1000000000031
 
 Turn 2:
 Snowflake Arctic's key advantage over Llama 3 is its far greater inference and training efficiency—thanks to its Dense-MoE architecture, it activates only 17 billion of its 480 billion parameters per token, delivering strong enterprise-task performance (like SQL and coding) at a fraction of the compute cost.

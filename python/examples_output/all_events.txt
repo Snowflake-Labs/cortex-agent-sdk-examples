@@ -12,7 +12,7 @@ Found 2 relevant tools
   [thinking complete] (55 chars)
   [status] extracting_tool_calls: Choosing data sources to use
   [status] executing_tools: Getting additional context
-  [tool_use] name=analyst type=system_agentic_semantic_context id=toolu_bdrk_01VpmoWPqL1R6JAnBeznuJqK
+  [tool_use] name=analyst type=system_agentic_semantic_context id=toolu_example_1
   [tool_result_status] executing_tool: Running analyst (tool=system_agentic_semantic_context)
   [tool_result] status=success name=analyst
   [status] reasoning_agent_stop: Reviewing the results
@@ -22,11 +22,11 @@ The date is stored as VARCHAR. I need the latest close price per symbol, then to
   [thinking complete] (145 chars)
   [status] extracting_tool_calls: Choosing data sources to use
   [status] executing_tools: Getting additional context
-  [tool_use] name=system_execute_sql type=system_execute_sql id=toolu_bdrk_017ZJZk1AxGH58xgvJUUJ2nM
+  [tool_use] name=system_execute_sql type=system_execute_sql id=toolu_example_2
   [tool_result_status] executing_tool: Running system_execute_sql (tool=system_execute_sql)
   [tool_result_status] Validating SQL: Postprocessing and validating SQL (tool=system_execute_sql)
   [tool_result_status] Executing SQL: Executing SQL (tool=system_execute_sql)
-  [tool_result_status] Executing SQL: Query ID: 01c6a810-001c-b00f-0000-08092b569de2 (tool=system_execute_sql)
+  [tool_result_status] Executing SQL: Query ID: 00000000-0000-4000-8000-000000000001 (tool=system_execute_sql)
   [tool_result_status] RUNNING: Executing SQL (tool=system_execute_sql)
   [tool_result_status] SUCCESS: Executing SQL (tool=system_execute_sql)
   [tool_result] status=success name=system_execute_sql
@@ -35,7 +35,7 @@ The date is stored as VARCHAR. I need the latest close price per symbol, then to
   [status] planning: Planning the next steps
   [status] extracting_tool_calls: Choosing data sources to use
   [status] executing_tools: Getting additional context
-  [tool_use] name=data_to_chart type=data_to_chart id=toolu_bdrk_01EM1LVsTRpPrpnzc6r3Qt9V
+  [tool_use] name=data_to_chart type=data_to_chart id=toolu_example_3
   [tool_result_status] executing_tool: Running data_to_chart (tool=data_to_chart)
   [tool_result] status=success name=data_to_chart
   [status] reasoning_agent_stop: Reviewing the results
@@ -45,10 +45,10 @@ The top 5 stocks by their latest closing price are Goldman Sachs (GS) at $323.57
 
 
   [text complete] (192 chars)
-  [table] tool_use_id=toolu_bdrk_017ZJZk1AxGH58xgvJUUJ2nM query_id=01c6a810-001c-b00f-0000-08092b569de2
+  [table] tool_use_id=toolu_example_2 query_id=00000000-0000-4000-8000-000000000001
 
 
-  [chart] tool_use_id=toolu_bdrk_01EM1LVsTRpPrpnzc6r3Qt9V
+  [chart] tool_use_id=toolu_example_3
   [status] reasoning_agent_stop: Reviewing the results
   [status] proceeding_to_answer: Forming the answer
   [suggested_queries] count=3
